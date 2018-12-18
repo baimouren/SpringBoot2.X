@@ -1,4 +1,4 @@
-package com.boot.demo.service.impl;
+package com.boot.demo.service.manage.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boot.demo.mapper.UserMapper;
-import com.boot.demo.service.UserService;
+import com.boot.demo.mapper.manage.UserMapper;
+import com.boot.demo.service.manage.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	
 	@Override
-	public List<Map<String, Object>> query(Map<String, String> map) {
-		List<Map<String, Object>> queryList = userMapper.query(map);
+	public List<Map<String, Object>> select(Map<String, String> map) {
+		List<Map<String, Object>> queryList = userMapper.select(map);
 		return queryList;
 	}
 
@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int save(List<Map<String, Object>> list) {
-		int save = userMapper.save(list);
+	public int update(List<Map<String, Object>> list) {
+		int save = userMapper.update(list);
 		return save;
 	}
 

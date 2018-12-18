@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.boot.demo.service.UserService;
+import com.boot.demo.service.manage.UserService;
 
 @SpringBootApplication
 @ComponentScan("com.boot.demo.*")
@@ -32,7 +32,7 @@ public class PgController {
 	public String pg(@PathVariable String pg) {
 		
 		Map<String, String> map = new HashMap<>();
-		List<Map<String, Object>> query = userService.query(map);
+		List<Map<String, Object>> query = userService.select(map);
 		
 		logger.info(query.toString());
 		return pg;
