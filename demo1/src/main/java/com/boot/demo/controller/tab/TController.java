@@ -33,7 +33,7 @@ public class TController {
 	private CommonService commonService;
 	
 	@ResponseBody
-	@RequestMapping("/query{tab}")
+	@RequestMapping("/query/{tab}")
 	public List<Object> queryTab(HttpServletRequest request,HttpServletResponse response,@PathVariable String tab){
         logger.info(tab);
 //		Map<String, String[]> parameterMap = request.getParameterMap();
