@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <!-- namespace用于绑定Dao接口 -->
 <mapper namespace="com.boot.demo.mapper.manage.UserMapper">
-
 	<!-- 用用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.boot.demo.demo.User" >
+	<resultMap id="BaseResultMap" type="com.boot.demo.demo.UserModel" >
 		<!-- column代表数据库列名，property代表实体类属性名 -->
 		<result column="row_id" property="rowId"/>
 		<result column="login_name" property="loginName"/>

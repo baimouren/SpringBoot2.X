@@ -1,6 +1,11 @@
 package com.boot.demo.demo;
 
-public class User {
+/**
+ * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @author CB
+ * @date:   2018年12月19日 下午3:46:38
+ */
+public class UserModel {
 	
 	private  Long  rowId;
 	private  String  loginName;

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @author CB
+ * @date:   2018年12月19日 下午3:46:52
+ */
 @SpringBootApplication
 @ComponentScan("com.boot.demo.*")
 @MapperScan("com.boot.demo.mapper")
@@ -19,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PgController {
 	private static final Logger logger = LoggerFactory.getLogger(PgController.class);
 	
-	@ResponseBody
 	@RequestMapping(value="/pg/{pg}",method = RequestMethod.GET)
 	public String pg(@PathVariable String pg) {
 		logger.info("页面名："+ pg + ".jsp");

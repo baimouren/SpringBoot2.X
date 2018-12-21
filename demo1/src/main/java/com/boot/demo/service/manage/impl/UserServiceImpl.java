@@ -6,21 +6,21 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boot.demo.demo.UserModel;
 import com.boot.demo.mapper.manage.UserMapper;
 import com.boot.demo.service.manage.UserService;
 
+/**
+ * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @author CB
+ * @date:   2018年12月19日 下午3:46:19
+ */
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
 	
-	@Override
-	public List<Map<String, Object>> select(Map<String, String> map) {
-		List<Map<String, Object>> queryList = userMapper.select(map);
-		return queryList;
-	}
-
 	@Override
 	public int add(List<Map<String, Object>> list) {
 		int add = userMapper.add(list);
@@ -37,6 +37,13 @@ public class UserServiceImpl implements UserService {
 	public int update(List<Map<String, Object>> list) {
 		int save = userMapper.update(list);
 		return save;
+	}
+
+	@SuppressWarnings("hiding")
+	@Override
+	public <UserModel> List<UserModel> select(Map<String, String> map) {
+		List<UserModel> queryList = userMapper.select(map);
+		return queryList;
 	}
 
 }

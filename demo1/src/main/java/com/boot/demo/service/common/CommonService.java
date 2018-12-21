@@ -11,17 +11,7 @@ import java.util.Map;
  */
 public interface CommonService {
 	
-	/**
-	 * @Description: 公共查询方法
-	 * @param sql
-	 * @return
-	 */
-	public List<Map<String,Object>> query(String sql);
+	public List<Object> query(String tab);
 	
-	/**
-	 * @Description: 公共增删改方法
-	 * @param list
-	 * @return
-	 */
 	public int save(List<Map<String,Object>> list);
 }

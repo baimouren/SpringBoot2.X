@@ -3,6 +3,8 @@ package com.boot.demo.mapper.common;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * @Description:公共
  * @author CB
@@ -10,7 +12,7 @@ import java.util.Map;
  */
 public interface CommonMapper {
 	
-	public List<Map<String,Object>> query(String sql);
+	public List<Object> query( @Param("sql") String sql);
 	
 	public int save(List<Map<String,Object>> list);
 }
