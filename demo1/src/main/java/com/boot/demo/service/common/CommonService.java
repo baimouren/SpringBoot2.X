@@ -13,5 +13,7 @@ public interface CommonService {
 	
 	public List<Object> query(String tab);
 	
-	public int save(List<Map<String,Object>> list);
+	public int save(List<Map<String, Object>> list, String tab);
+
+	public int remove(List<Map<String, Object>> list, String tab);
 }

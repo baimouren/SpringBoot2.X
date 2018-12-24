@@ -1,9 +1,7 @@
 package com.boot.demo.controller.tab;
 
-import java.lang.Thread.State;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.boot.demo.controller.pg.PgController;
+import com.boot.demo.controller.base.BaseController;
 import com.boot.demo.service.common.CommonService;
 
 /**
@@ -26,8 +24,8 @@ import com.boot.demo.service.common.CommonService;
  */
 @RequestMapping("/t")
 @Controller
-public class TController {
-	private static final Logger logger = LoggerFactory.getLogger(PgController.class);
+public class TController extends BaseController{
+	private static final Logger logger = LoggerFactory.getLogger(TController.class);
 	
 	@Autowired
 	private CommonService commonService;
@@ -36,7 +34,6 @@ public class TController {
 	@RequestMapping("/query/{tab}")
 	public List<Object> queryTab(HttpServletRequest request,HttpServletResponse response,@PathVariable String tab){
         logger.info(tab);
-//		Map<String, String[]> parameterMap = request.getParameterMap();
 		List<Object> list = commonService.query(tab);
 		return list;
 	}
