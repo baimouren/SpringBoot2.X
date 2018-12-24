@@ -28,21 +28,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int delet(Map<String, String> map) {
-		int delet = userMapper.delet(map);
+	public int remove(Map<String, String> map) {
+		int delet = userMapper.remove(map);
 		return delet;
 	}
 
 	@Override
-	public int update(List<Map<String, Object>> list) {
-		int save = userMapper.update(list);
+	public int replace(List<Map<String, Object>> list) {
+		int save = userMapper.replace(list);
 		return save;
 	}
 
 	@SuppressWarnings("hiding")
 	@Override
-	public <UserModel> List<UserModel> select(Map<String, String> map) {
-		List<UserModel> queryList = userMapper.select(map);
+	public <UserModel> List<UserModel> query(Map<String, Object> map) {
+		List<UserModel> queryList = userMapper.query(map);
 		return queryList;
 	}
 

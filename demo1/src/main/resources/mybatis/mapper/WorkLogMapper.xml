@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace用于绑定Dao接口 -->
+<mapper namespace="com.boot.demo.mapper.manage.WorkLogMapper">
+	<!-- 用用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.boot.demo.demo.WorkLogModel" >
+<!-- 		row_id plan_today finished plan_tomorrow user_id user_code notes log_date create_time company_id		 -->
+		<result column="row_id" property="rowId" />
+		<result column="plan_today" property="planToday" />
+		<result column="finished" property="finished" />
+		<result column="plan_tomorrow" property="planTomorrow" />
+		<result column="user_id" property="userId" />
+		<result column="user_code" property="userCode" />
+		<result column="notes" property="notes" />
+		<result column="log_date" property="logDate" />
+		<result column="create_time" property="createTime" />
+		<result column="company_id" property="companyId" />
+	</resultMap>
+	
+    <!-- 查询名字记录sql -->  
+    <select id="query" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM cb_sys_work_log WHERE 1=1 
+		<if test="rowId!=null">rowId=#{rowId}</if>
+		<if test="planToday!=null">planToday=#{planToday}</if>
+		<if test="finished!=null">finished=#{finished}</if>
+		<if test="planTomorrow!=null">planTomorrow=#{planTomor}</if>
+		<if test="userId!=null">userId=#{userId}</if>
+		<if test="userCode!=null">userCode=#{userCode}</if>
+		<if test="notes!=null">notes=#{notes}</if>
+		<if test="logDate!=null">logDate=#{logDate}</if>
+		<if test="createTime!=null">createTime=#{createTime}</if>
+		<if test="companyId!=null">companyId=#{companyId}</if>
+		
+        <if test="limit != null"> limit #{limit} </if>
+    </select>  
+</mapper>

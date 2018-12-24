@@ -16,7 +16,7 @@
 	</resultMap>
 	
     <!-- 查询名字记录sql -->  
-    <select id="select" parameterType="map" resultType="java.util.Map">    
+    <select id="query" parameterType="map" resultMap="BaseResultMap">    
         SELECT * FROM m_tb_user WHERE 1=1 
         
     </select>  

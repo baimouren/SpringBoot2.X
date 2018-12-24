@@ -19,8 +19,8 @@ public class BaseController{
 	protected static Map<String,Object> getParamMap(HttpServletRequest request,HttpServletResponse response) {
 			Map<String, String[]> parameterMap = request.getParameterMap();
 			Map<String, Object> pMap = new HashMap<>();
-		
-			ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<>();
+			pMap.put("limit", 100);
+			
 			try {
 				for(String m : parameterMap.keySet()) {
 					String[] param = parameterMap.get(m);
@@ -33,13 +33,12 @@ public class BaseController{
 					
 				}
 				
-				threadLocal.set(pMap);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 			logger.info(pMap.toString());
-			return threadLocal.get();
+			return pMap;
 	}
 	
 }

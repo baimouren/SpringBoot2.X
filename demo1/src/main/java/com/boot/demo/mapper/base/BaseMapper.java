@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public interface BaseMapper {
 	
-	public <T> List<T> select(Map<String,String> map);
+	public <T> List<T> query(Map<String,Object> map);
 	
 	public int add(List<Map<String,Object>> list);
 	
-	public int delet(Map<String,String> map);
+	public int remove(Map<String,String> map);
 	
-	public int update(List<Map<String,Object>> list);
+	public int replace(List<Map<String,Object>> list);
 }
