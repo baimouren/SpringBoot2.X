@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boot.demo.demo.WorkLogModel;
 import com.boot.demo.mapper.manage.WorkLogMapper;
+import com.boot.demo.model.WorkLogModel;
 import com.boot.demo.service.manage.WorkLogService;
 
 @Service("workLogService")

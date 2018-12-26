@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.boot.demo.demo.UserModel;
 import com.boot.demo.mapper.manage.UserMapper;
+import com.boot.demo.model.UserModel;
 import com.boot.demo.service.manage.UserService;
 
 /**

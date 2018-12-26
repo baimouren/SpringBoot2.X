@@ -1,4 +1,4 @@
-package com.boot.demo.demo;
+package com.boot.demo.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.boot.demo.demo;
+package com.boot.demo.model;
 
 /**
  * @Description:TODO(这里用一句话描述这个类的作用)   
