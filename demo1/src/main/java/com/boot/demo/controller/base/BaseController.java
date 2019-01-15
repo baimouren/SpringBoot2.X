@@ -10,13 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class BaseController{
 	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 	
-	protected static Map<String,Object> getParamMap(HttpServletRequest request,HttpServletResponse response) {
+	@Autowired
+	protected HttpServletRequest request;
+	
+	@Autowired
+	protected HttpServletResponse response;
+	
+	protected Map<String,Object> getParamMap() {
 			Map<String, String[]> parameterMap = request.getParameterMap();
 			Map<String, Object> pMap = new HashMap<>();
 			pMap.put("limit", 100);

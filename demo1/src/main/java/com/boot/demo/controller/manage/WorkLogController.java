@@ -21,8 +21,8 @@ public class WorkLogController extends BaseController{
 	private WorkLogService workLogService;
 	
 	@RequestMapping("/queryWorkLog")
-	public List<Object> queryWorkLog(HttpServletRequest request,HttpServletResponse response) {
-		Map<String, Object> paramMap = getParamMap(request, response);
+	public List<Object> queryWorkLog() {
+		Map<String, Object> paramMap = getParamMap();
 		List<Object> query = workLogService.query(paramMap);
 		return query;
 	}

@@ -4,7 +4,7 @@
 <!-- namespace用于绑定Dao接口 -->
 <mapper namespace="com.boot.demo.mapper.manage.UserMapper">
 	<!-- 用用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.boot.demo.demo.UserModel" >
+	<resultMap id="BaseResultMap" type="com.boot.demo.model.UserModel" >
 		<!-- column代表数据库列名，property代表实体类属性名 -->
 		<result column="row_id" property="rowId"/>
 		<result column="login_name" property="loginName"/>

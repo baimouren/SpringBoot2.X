@@ -24,9 +24,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PgController {
 	private static final Logger logger = LoggerFactory.getLogger(PgController.class);
 	
+	@RequestMapping(value="{/,/index,index.html}",method = RequestMethod.GET)
+	public String index(@PathVariable String pg) {
+		logger.info("页面名："+ pg );
+		return "index";
+	}
+	
 	@RequestMapping(value="/pg/{pg}",method = RequestMethod.GET)
 	public String pg(@PathVariable String pg) {
-		logger.info("页面名："+ pg + ".jsp");
+		logger.info("页面名："+ pg );
 		return pg;
 	}
 	
