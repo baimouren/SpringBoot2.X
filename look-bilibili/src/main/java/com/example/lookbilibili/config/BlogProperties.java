@@ -1,4 +1,4 @@
-package com.example.lookbilibili.controller;
+package com.example.lookbilibili.config;
 
 
 import org.springframework.beans.factory.annotation.Value;

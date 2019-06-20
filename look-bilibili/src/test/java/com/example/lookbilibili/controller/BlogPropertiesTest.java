@@ -1,5 +1,6 @@
 package com.example.lookbilibili.controller;
 
+import com.example.lookbilibili.config.BlogProperties;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,9 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @Description TODO
@@ -35,7 +34,7 @@ public class BlogPropertiesTest {
         logger.error("\r\n"+blogProperties.toString());
 
         Assert.assertEquals(blogProperties.getTitle(), "Spring Boot");
-        Assert.assertEquals(blogProperties.getName(), "D-D");
+        Assert.assertEquals(blogProperties.getName(), "DD");
     }
 
 }
