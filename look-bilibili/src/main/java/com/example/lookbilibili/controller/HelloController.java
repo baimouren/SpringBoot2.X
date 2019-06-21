@@ -1,6 +1,9 @@
 package com.example.lookbilibili.controller;
 
+import com.example.lookbilibili.exception.MyException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  **/
 
-@RestController
+@Controller
 public class HelloController {
 
+    @ResponseBody
     @RequestMapping("/hello")
     public String index(){
         return "Hello World";
@@ -25,4 +29,8 @@ public class HelloController {
         return "";
     }
 
+    @RequestMapping("/json")
+    public String json() throws MyException {
+        throw new MyException("发生错误2");
+    }
 }
