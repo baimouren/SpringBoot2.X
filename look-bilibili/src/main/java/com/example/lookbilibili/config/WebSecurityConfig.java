@@ -44,9 +44,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("user1").password("123456").roles("USER");
+
+        /**
+         * .passwordEncoder(new BCryptPasswordEncoder())",
+         * 这相当于登陆时用BCrypt加密方式对用户密码进行处理。
+         * 这相当于对内存中的密码进行Bcrypt编码加密。比对时一致，说明密码正确，允许登陆。
+         * ---------------------
+         * 作者：Canon_in_D_Major
+         * 来源：CSDN
+         * 原文：https://blog.csdn.net/canon_in_d_major/article/details/79675033
+         * 版权声明：本文为博主原创文章，转载请附上博文链接！
+         */
         auth.
                 inMemoryAuthentication().
                 passwordEncoder(new BCryptPasswordEncoder()).
