@@ -18,4 +18,11 @@ public class HelloController {
         return "Hello World";
     }
 
+    @RequestMapping("/erroree")
+    public String erroree() throws Exception {
+        if (true)
+        throw new Exception("发生错误");
+        return "";
+    }
+
 }
