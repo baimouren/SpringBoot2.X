@@ -1,4 +1,4 @@
-package com.example.lookbilibili.mapping.error;
+package com.example.lookbilibili.domain.error;
 
 /**
  * @Description TODO

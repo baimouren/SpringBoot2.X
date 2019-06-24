@@ -1,5 +1,7 @@
 package com.example.lookbilibili.config;
 
+import com.example.lookbilibili.domain.UserRole;
+import com.example.lookbilibili.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.annotation.Resource;
 
 /**
  * @Description TODO
@@ -17,6 +21,42 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    /**
+     *     作者：乾源
+     *     来源：CSDN
+     *     原文：https://blog.csdn.net/u014553029/article/details/86690622
+     */
+
+//    @Resource
+//    private UserService userService;
+//
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        //允许基于HttpServletRequest使用限制访问
+//        http.authorizeRequests()
+//                //不需要身份认证
+//                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
+//                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
+//                .antMatchers("/user/**").hasAnyRole("USER")
+//                //.hasIpAddress()//读取配置权限配置
+//                .antMatchers("/**").access("hasRole('ADMIN')")
+//                .anyRequest().authenticated()
+//                //自定义登录界面
+//                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
+//                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
+//                .and().httpBasic()
+//                .and().sessionManagement().invalidSessionUrl("/toLogin")
+//                .and().csrf().disable();
+//    }
+
 
     /**
      * 通过@EnableWebSecurity注解开启Spring Security的功能
@@ -42,19 +82,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+
+    /**
+     * 简单实现 内存取值
+     * .passwordEncoder(new BCryptPasswordEncoder())",
+     * 这相当于登陆时用BCrypt加密方式对用户密码进行处理。
+     * 这相当于对内存中的密码进行Bcrypt编码加密。比对时一致，说明密码正确，允许登陆。
+     * ---------------------
+     * 作者：Canon_in_D_Major
+     * 来源：CSDN
+     * 原文：https://blog.csdn.net/canon_in_d_major/article/details/79675033
+     * 版权声明：本文为博主原创文章，转载请附上博文链接！
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-        /**
-         * .passwordEncoder(new BCryptPasswordEncoder())",
-         * 这相当于登陆时用BCrypt加密方式对用户密码进行处理。
-         * 这相当于对内存中的密码进行Bcrypt编码加密。比对时一致，说明密码正确，允许登陆。
-         * ---------------------
-         * 作者：Canon_in_D_Major
-         * 来源：CSDN
-         * 原文：https://blog.csdn.net/canon_in_d_major/article/details/79675033
-         * 版权声明：本文为博主原创文章，转载请附上博文链接！
-         */
         auth.
                 inMemoryAuthentication().
                 passwordEncoder(new BCryptPasswordEncoder()).

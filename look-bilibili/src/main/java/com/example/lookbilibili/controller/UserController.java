@@ -1,6 +1,6 @@
 package com.example.lookbilibili.controller;
 
-import com.example.lookbilibili.mapping.User;
+import com.example.lookbilibili.domain.SysUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -17,18 +17,18 @@ import java.util.*;
 public class UserController {
 
     // 创建线程安全的Map
-    static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
+    static Map<Long, SysUser> users = Collections.synchronizedMap(new HashMap<Long, SysUser>());
 
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public List<User> getUserList() {
+    public List<SysUser> getUserList() {
         // 处理"/users/"的GET请求，用来获取用户列表
         // 还可以通过@RequestParam从页面中传递参数来进行查询条件或者翻页信息的传递
-        List<User> r = new ArrayList<User>(users.values());
+        List<SysUser> r = new ArrayList<SysUser>(users.values());
         return r;
     }
 
     @RequestMapping(value="/", method=RequestMethod.POST)
-    public String postUser(@ModelAttribute User user) {
+    public String postUser(@ModelAttribute SysUser user) {
         // 处理"/users/"的POST请求，用来创建User
         // 除了@ModelAttribute绑定参数之外，还可以通过@RequestParam从页面中传递参数
         users.put(user.getId(), user);
@@ -36,16 +36,16 @@ public class UserController {
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
+    public SysUser getUser(@PathVariable Long id) {
         // 处理"/users/{id}"的GET请求，用来获取url中id值的User信息
         // url中的id可通过@PathVariable绑定到函数的参数中
         return users.get(id);
     }
 
     @RequestMapping(value="/{id}", method= RequestMethod.PUT)
-    public String putUser(@PathVariable Long id, @ModelAttribute User user) {
+    public String putUser(@PathVariable Long id, @ModelAttribute SysUser user) {
         // 处理"/users/{id}"的PUT请求，用来更新User信息
-        User u = users.get(id);
+        SysUser u = users.get(id);
         u.setName(user.getName());
         u.setAge(user.getAge());
         users.put(id, u);

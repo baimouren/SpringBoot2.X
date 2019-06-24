@@ -1,6 +1,6 @@
 package com.example.lookbilibili.exception;
 
-import com.example.lookbilibili.mapping.error.ErrorInfo;
+import com.example.lookbilibili.domain.error.ErrorInfo;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

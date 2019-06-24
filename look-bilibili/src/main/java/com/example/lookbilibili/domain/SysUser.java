@@ -1,4 +1,4 @@
-package com.example.lookbilibili.mapping;
+package com.example.lookbilibili.domain;
 
 /**
  * @Description TODO
@@ -6,7 +6,7 @@ package com.example.lookbilibili.mapping;
  * @Date 2019-06-20 19:00
  * @Version 1.0
  **/
-public class User {
+public class SysUser {
     private Long id;
     private String name;
     private Integer age;
