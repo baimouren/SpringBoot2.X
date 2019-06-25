@@ -4,7 +4,7 @@
 <!-- namespace用于绑定Dao接口 -->
 <mapper namespace="com.example.lookbilibili.mapper.manage.WorkLogMapper">
 	<!-- 用用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.example.lookbilibili.domain.WorkLogMomain" >
+	<resultMap id="BaseResultMap" type="com.example.lookbilibili.domain.work.WorkLogMomain" >
 <!-- 		row_id plan_today finished plan_tomorrow user_id user_code notes log_date create_time company_id		 -->
 		<result column="row_id" property="rowId" />
 		<result column="plan_today" property="planToday" />

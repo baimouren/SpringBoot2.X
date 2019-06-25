@@ -1,14 +1,14 @@
-package com.example.lookbilibili.domain;
+package com.example.lookbilibili.domain.manage;
 
 import java.util.Date;
 
 /**
- * @Description TODO
+ * @Description user实体类
  * @Auther CB
- * @Date 2019-06-21 14:24
+ * @Date 2019-06-20 19:00
  * @Version 1.0
  **/
-public class UserRole {
+public class SysUser {
     private Integer rowId ;
 
     private Integer sortNo;

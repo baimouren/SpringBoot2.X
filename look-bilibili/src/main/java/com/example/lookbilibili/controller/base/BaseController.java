@@ -46,5 +46,14 @@ public class BaseController {
 			logger.info(pMap.toString());
 			return pMap;
 	}
-	
+
+	// 获取参数
+	protected String getString(String key){
+		if(key.trim().isEmpty()){
+			return null;
+		}
+		Map<String,Object> paramMap = getParamMap();
+		return paramMap.get(key).toString();
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.example.lookbilibili.domain;
+package com.example.lookbilibili.domain.work;
 
 import java.util.Date;
 
