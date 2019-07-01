@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2019-06-25 10:38
  * @Version 1.0
  **/
-@Service("login")
+@Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
     @Autowired

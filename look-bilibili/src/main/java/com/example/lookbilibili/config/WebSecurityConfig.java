@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @Description TODO
@@ -32,26 +33,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
 //    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        //允许基于HttpServletRequest使用限制访问
-//        http.authorizeRequests()
-//                //不需要身份认证
-//                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
-//                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
-//                .antMatchers("/user/**").hasAnyRole("USER")
-//                //.hasIpAddress()//读取配置权限配置
-//                .antMatchers("/**").access("hasRole('ADMIN')")
-//                .anyRequest().authenticated()
-//                //自定义登录界面
-//                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
-//                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
-//                .and().httpBasic()
-//                .and().sessionManagement().invalidSessionUrl("/toLogin")
-//                .and().csrf().disable();
-//    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //允许基于HttpServletRequest使用限制访问
+        http.authorizeRequests()
+                //不需要身份认证
+                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
+                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
+                .antMatchers("/user/**").hasAnyRole("USER")
+                //.hasIpAddress()//读取配置权限配置
+                .antMatchers("/**").access("hasRole('ADMIN')")
+                .anyRequest().authenticated()
+                //自定义登录界面
+                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
+                .and().httpBasic()
+                .and().sessionManagement().invalidSessionUrl("/toLogin")
+                .and().csrf().disable()
+                ;
+    }
 
 
     /**
@@ -63,14 +65,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 通过formLogin()定义当需要用户登录时候，转到的登录页面。
      * configureGlobal(AuthenticationManagerBuilder auth)方法，在内存中创建了一个用户，该用户的名称为user，密码为password，用户角色为USER
      */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests().antMatchers("/", "/home").permitAll().anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll()
-                .and().logout().permitAll()
-                .and().rememberMe();
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests().antMatchers("/", "/home").permitAll().anyRequest().authenticated()
+//                .and().formLogin().loginPage("/login").permitAll()
+//                .and().logout().permitAll()
+//                .and().rememberMe();
+//    }
 
 
     /**
