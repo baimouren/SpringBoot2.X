@@ -2,16 +2,20 @@ package com.example.lookbilibili.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * @Description TODO
+ * @Description 安全控制
  * @Auther CB
  * @Date 2019-06-21 11:26
  * @Version 1.0
  **/
-//@Configuration
-//@EnableWebSecurity
-public class WebSecurityConfig  /*extends WebSecurityConfigurerAdapter*/{
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
@@ -80,16 +84,16 @@ public class WebSecurityConfig  /*extends WebSecurityConfigurerAdapter*/{
      * 原文：https://blog.csdn.net/canon_in_d_major/article/details/79675033
      * 版权声明：本文为博主原创文章，转载请附上博文链接！
      */
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        auth.
-//                inMemoryAuthentication().
-//                passwordEncoder(new BCryptPasswordEncoder()).
-//                withUser("0002").
-//                password(new BCryptPasswordEncoder().encode("cs")).
-//                roles("USER");
-//
-//    }
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder bccode = new BCryptPasswordEncoder();
+        auth
+                .inMemoryAuthentication()
+                .passwordEncoder(bccode)
+                .withUser("0002")
+                .password(bccode.encode("cs"))
+                .roles("USER");
+
+    }
 
 }
