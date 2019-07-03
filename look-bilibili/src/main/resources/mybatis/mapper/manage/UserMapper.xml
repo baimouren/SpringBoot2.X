@@ -11,7 +11,7 @@
         <result column="user_code" property="userCode"/>
         <result column="user_password" property="userPassword"/>
         <result column="user_name" property="userName"/>
-        <result column="company_id" property="createTime"/>
+        <result column="company_id" property="companyId"/>
         <result column="notes" property="notes"/>
         <result column="create_time" property="createTime"/>
 	</resultMap>
@@ -21,7 +21,7 @@
         SELECT * FROM cb_sys_user T1
         WHERE 1=1
         <if test="userCode!=null">
-            user_code = #{user_code}
+            user_code = #{userCode}
         </if>
         <if test="userName!=null">
             userName = #{userName}

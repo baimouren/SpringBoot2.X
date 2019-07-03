@@ -2,12 +2,6 @@ package com.example.lookbilibili.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @Description TODO
@@ -15,9 +9,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * @Date 2019-06-21 11:26
  * @Version 1.0
  **/
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@Configuration
+//@EnableWebSecurity
+public class WebSecurityConfig  /*extends WebSecurityConfigurerAdapter*/{
 
 
     /**
@@ -34,26 +28,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
 //    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //允许基于HttpServletRequest使用限制访问
-        http.authorizeRequests()
-                //不需要身份认证
-                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
-                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
-                .antMatchers("/user/**").hasAnyRole("USER")
-                //.hasIpAddress()//读取配置权限配置
-                .antMatchers("/**").access("hasRole('ADMIN')")
-                .anyRequest().authenticated()
-                //自定义登录界面
-                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
-                .and().httpBasic()
-                .and().sessionManagement().invalidSessionUrl("/toLogin")
-                .and().csrf().disable()
-                ;
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        //允许基于HttpServletRequest使用限制访问
+//        http.authorizeRequests()
+//                //不需要身份认证
+//                .antMatchers("/", "/home","/toLogin","/**/customer/**").permitAll()
+//                .antMatchers("/js/**", "/css/**", "/images/**", "/fronts/**", "/doc/**", "/toLogin").permitAll()
+//                .antMatchers("/user/**").hasAnyRole("USER")
+//                //.hasIpAddress()//读取配置权限配置
+//                .antMatchers("/**").access("hasRole('ADMIN')")
+//                .anyRequest().authenticated()
+//                //自定义登录界面
+//                .and().formLogin().loginPage("/toLogin").loginProcessingUrl("/login").failureUrl("/toLogin?error").permitAll()
+//                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .and().exceptionHandling().accessDeniedPage("/toLogin?deny")
+//                .and().httpBasic()
+//                .and().sessionManagement().invalidSessionUrl("/toLogin")
+//                .and().csrf().disable()
+//                ;
+//    }
 
 
     /**
@@ -86,16 +80,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 原文：https://blog.csdn.net/canon_in_d_major/article/details/79675033
      * 版权声明：本文为博主原创文章，转载请附上博文链接！
      */
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.
-                inMemoryAuthentication().
-                passwordEncoder(new BCryptPasswordEncoder()).
-                withUser("0002").
-                password(new BCryptPasswordEncoder().encode("cs")).
-                roles("USER");
-
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//
+//        auth.
+//                inMemoryAuthentication().
+//                passwordEncoder(new BCryptPasswordEncoder()).
+//                withUser("0002").
+//                password(new BCryptPasswordEncoder().encode("cs")).
+//                roles("USER");
+//
+//    }
 
 }

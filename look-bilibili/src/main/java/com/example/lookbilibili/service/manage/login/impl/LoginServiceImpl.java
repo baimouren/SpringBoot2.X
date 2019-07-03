@@ -22,6 +22,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String login(String userName, String userPassword) {
+
         SysUser user = new SysUser();
         user.setUserCode(userName);
         user.setUserPassword(userPassword);
