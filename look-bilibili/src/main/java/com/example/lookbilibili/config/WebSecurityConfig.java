@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 /**
- * 第一种自定义用户服务信息
+ * 第一种自定义用户认证服务
  */
 //    @Override
 //    public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -95,24 +95,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
     /**
-     * 第二种自定义用户服务信息
+     * 第二种自定义用户认证服务
      * 取消连接方法 and()
+     */
+//    @Override
+//protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        // 内存存储
+//        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> userConfig =
+//                auth.inMemoryAuthentication().passwordEncoder(passwordEncoder);
+//        userConfig.withUser("admin")
+//                .password(passwordEncoder.encode("cs"))
+//        .authorities("ROLE_ADMIN","ROLE_USER");
+//        userConfig.withUser("0002")
+//                .password(passwordEncoder.encode("cs"))
+//                .authorities("ROLE_USER");
+//
+//}
+
+    /**
+     * 第三种自定义用户认证服务
+     * 数据库认证
      */
     @Override
 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        // 内存存储
-        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> userConfig =
-                auth.inMemoryAuthentication().passwordEncoder(passwordEncoder);
-        userConfig.withUser("admin")
-                .password(passwordEncoder.encode("cs"))
-        .authorities("ROLE_ADMIN","ROLE_USER");
-        userConfig.withUser("0002")
-                .password(passwordEncoder.encode("cs"))
-                .authorities("ROLE_USER");
+
 
 }
-
 
 
 }
