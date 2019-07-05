@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +18,8 @@ public class BaseController{
 	@Autowired
 	protected HttpServletRequest request;
 	
-	@Autowired
-	protected HttpServletResponse response;
+//	@Autowired
+//	protected HttpServletResponse response;
 	
 	protected Map<String,Object> getParamMap() {
 			Map<String, String[]> parameterMap = request.getParameterMap();

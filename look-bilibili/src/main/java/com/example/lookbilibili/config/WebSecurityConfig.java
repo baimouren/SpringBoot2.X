@@ -3,9 +3,11 @@ package com.example.lookbilibili.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @Description 安全控制
@@ -72,22 +74,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and().rememberMe();
 //    }
 
+/**
+ * 第一种自定义用户服务信息
+ */
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        auth
+//                .inMemoryAuthentication()
+//                .passwordEncoder(passwordEncoder)
+//                .withUser("0002")
+//                .password(passwordEncoder.encode("cs"))
+//                .roles("USER")
+//                .and()
+//                .withUser("admin")
+//                .password(passwordEncoder.encode("1234"))
+//                .roles("USER", "ADMIN")
+//        ;
+//
+//    }
 
+    /**
+     * 第二种自定义用户服务信息
+     * 取消连接方法 and()
+     */
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        auth
-                .inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("0002")
+protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // 内存存储
+        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> userConfig =
+                auth.inMemoryAuthentication().passwordEncoder(passwordEncoder);
+        userConfig.withUser("admin")
                 .password(passwordEncoder.encode("cs"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(passwordEncoder.encode("1234"))
-                .roles("USER", "ADMIN")
-        ;
+        .authorities("ROLE_ADMIN","ROLE_USER");
+        userConfig.withUser("0002")
+                .password(passwordEncoder.encode("cs"))
+                .authorities("ROLE_USER");
 
-    }
+}
+
+
 
 }
