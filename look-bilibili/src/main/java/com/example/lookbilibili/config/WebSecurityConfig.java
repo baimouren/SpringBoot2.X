@@ -1,5 +1,6 @@
 package com.example.lookbilibili.config;
 
+import com.example.lookbilibili.utils.MyPasswordEncoder;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,18 +145,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 第三种自定义用户认证服务
      * 数据库认证 + 密码阴匙
      */
+//    @Autowired
+//    private DataSource dataSource = null;
+//
+//    private String pwdQuery = "select t.USER_CODE as user_name,t.USER_PASSWORD as pwd,1 as available from xnjia_mysalf.cb_sys_user T where t.user_code = ? ";
+//    private String roleQuery = "select T2.USER_CODE AS USER_NAME, T3.ROLE_NAME FROM CB_SYS_USER_ROLE t1 LEFT JOIN CB_SYS_USER T2 ON T1.USER_ID = T2.ROW_ID LEFT JOIN CB_SYS_ROLE t3 ON T1.ROLE_ID = T3.ROW_ID where t2.USER_CODE = ? ";
+//
+//    @Value("${system.user.password.secret}")
+//    private String secret = null;
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder(this.secret);
+//        auth.jdbcAuthentication()
+//                .passwordEncoder(passwordEncoder)
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery(pwdQuery)
+//                .authoritiesByUsernameQuery(roleQuery);
+//
+//    }
+
+    /**
+     * 第三种自定义用户认证服务
+     * 数据库认证 + MD5加密
+     */
     @Autowired
     private DataSource dataSource = null;
 
     private String pwdQuery = "select t.USER_CODE as user_name,t.USER_PASSWORD as pwd,1 as available from xnjia_mysalf.cb_sys_user T where t.user_code = ? ";
     private String roleQuery = "select T2.USER_CODE AS USER_NAME, T3.ROLE_NAME FROM CB_SYS_USER_ROLE t1 LEFT JOIN CB_SYS_USER T2 ON T1.USER_ID = T2.ROW_ID LEFT JOIN CB_SYS_ROLE t3 ON T1.ROLE_ID = T3.ROW_ID where t2.USER_CODE = ? ";
 
-    @Value("${system.user.password.secret}")
-    private String secret = null;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder(this.secret);
+        PasswordEncoder passwordEncoder = new MyPasswordEncoder();
         auth.jdbcAuthentication()
                 .passwordEncoder(passwordEncoder)
                 .dataSource(dataSource)
