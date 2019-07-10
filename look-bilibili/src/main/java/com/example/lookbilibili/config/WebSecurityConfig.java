@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -199,6 +200,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder passwordEncoder = new MyPasswordEncoder();
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 限定通过签名的请求
+        http.authorizeRequests()
+            // 限定/index或/p/*，请求赋予角色 ROLE_USER/ROLE_ADMIN
+            .antMatchers("/index","/hello", "/p/**").hasAnyRole("USER","ADMIN")
+            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+            // 其他路径允许签名后访问
+            .anyRequest().permitAll()
+            /* 对于没有配置权限的其他请求允许匿名访问 */
+            .and().anonymous()
+            /* 使用spring */
+            .and().formLogin().loginPage("/login").permitAll()
+            .and().logout().permitAll()
+            .and().rememberMe();
     }
 
 }

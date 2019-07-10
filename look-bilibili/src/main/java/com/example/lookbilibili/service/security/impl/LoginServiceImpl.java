@@ -5,6 +5,7 @@ import com.example.lookbilibili.mapper.security.SysUserMapper;
 import com.example.lookbilibili.service.security.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String login(String userName, String userPassword) {
+
+        if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(userPassword))
+            return "login";
 
         SysUser user = new SysUser();
         user.setUserCode(userName);
