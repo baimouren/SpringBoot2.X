@@ -13,29 +13,15 @@
         <result column="create_time" property="createTime"/>
 	</resultMap>
 
-    <select id="findRolesByCode" parameterType="map" resultMap="retMap">
+    <select id="findRolesByCode" parameterType="String" resultMap="retMap">
         SELECT * FROM (
-            SELECT
-            T1.ROW_ID as "rowId",
-            T1.USER_CODE as "userCode",
-            T1.USER_PASSWORD as "userPassword",
-            T2.ROLE_ID as "roleId",
-            T3.ROLE_NAME as "roleName",
-            T1.USER_NAME as "userName",
-            T1.COMPANY_ID as "companyId",
-            T1.NOTES as "notes",
-            T1.CREATE_TIME as "createTime"
+            SELECT T1.ROW_ID, T1.USER_CODE, T1.USER_PASSWORD, T2.ROLE_ID, T3.ROLE_NAME, T1.USER_NAME, T1.COMPANY_ID, T1.NOTES, T1.CREATE_TIME
             FROM CB_SYS_USER T1
             LEFT JOIN CB_SYS_USER_ROLE T2 ON T1.ROW_ID = T2.USER_ID
             LEFT JOIN CB_SYS_ROLE T3 ON T2.ROLE_ID = T3.ROW_ID
-        )
+        ) TT
         WHERE 1 = 1
-        <if test="userCode!=null">
-            userCode = #{userCode}
-        </if>
-        <if test="userName!=null">
-            userName = #{userName}
-        </if>
+        AND USER_CODE = #{userCode}
 
     </select>
 </mapper>

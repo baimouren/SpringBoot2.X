@@ -1,6 +1,7 @@
 package com.example.lookbilibili.service.security;
 
 import com.example.lookbilibili.domain.security.SysUser;
+import com.example.lookbilibili.domain.security.SysUserAndRole;
 import com.example.lookbilibili.domain.security.SysUserRole;
 
 import java.util.List;
@@ -15,5 +16,5 @@ import java.util.Map;
 public interface UserRoleService {
     public SysUser getUserByCode(String userName);
 
-    public List<SysUserRole> findRolesByCode(String userCode);
+    public List<SysUserAndRole> findRolesByCode(String userCode);
 }
