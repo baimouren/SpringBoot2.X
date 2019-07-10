@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace用于绑定Dao接口 -->
-<mapper namespace="com.example.lookbilibili.mapper.manage.UserMapper">
+<mapper namespace="com.example.lookbilibili.mapper.security.SysUserMapper">
 	<!-- 用用查询映射结果 -->
-	<resultMap id="userMap" type="com.example.lookbilibili.domain.manage.SysUser" >
+	<resultMap id="retMap" type="com.example.lookbilibili.domain.security.SysUser" >
 		<!-- column代表数据库列名，property代表实体类属性名 -->
 		<result column="row_id" property="rowId"/>
         <result column="sort_no" property="sortNo"/>
@@ -16,8 +16,18 @@
         <result column="create_time" property="createTime"/>
 	</resultMap>
 
-    <!-- 查询名字记录sql -->
-    <select id="getUser" parameterType="map" resultMap="userMap">
+    <select id="getUser" parameterType="map" resultMap="retMap">
+        SELECT * FROM cb_sys_user T1
+        WHERE 1=1
+        <if test="userCode!=null">
+            user_code = #{userCode}
+        </if>
+        <if test="userName!=null">
+            userName = #{userName}
+        </if>
+    </select>
+
+    <select id="getUserByCode" parameterType="map" resultMap="retMap">
         SELECT * FROM cb_sys_user T1
         WHERE 1=1
         <if test="userCode!=null">

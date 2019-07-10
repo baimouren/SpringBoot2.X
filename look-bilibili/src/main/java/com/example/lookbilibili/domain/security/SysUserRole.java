@@ -1,17 +1,17 @@
-package com.example.lookbilibili.domain.manage;
+package com.example.lookbilibili.domain.security;
 
 import java.util.Date;
 
 /**
- * @Description 角色
+ * @Description 用户角色对照
  * @Auther CB
  * @Date 2019-06-21 14:24
  * @Version 1.0
  **/
-public class UserRole {
+public class SysUserRole {
     private Integer rowId;
     private String userId;
-    private String userRole;
+    private String roleId;
     private String notes;
     private Date createTime;
 
@@ -31,12 +31,12 @@ public class UserRole {
         this.userId = userId;
     }
 
-    public String getUserRole() {
-        return userRole;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getNotes() {
@@ -57,10 +57,10 @@ public class UserRole {
 
     @Override
     public String toString() {
-        return "UserRole{" +
+        return "SysUserRole{" +
                 "rowId=" + rowId +
                 ", userId='" + userId + '\'' +
-                ", userRole='" + userRole + '\'' +
+                ", roleId='" + roleId + '\'' +
                 ", notes='" + notes + '\'' +
                 ", createTime=" + createTime +
                 '}';

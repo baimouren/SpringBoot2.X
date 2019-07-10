@@ -1,20 +1,18 @@
-package com.example.lookbilibili.domain.manage;
+package com.example.lookbilibili.domain.security;
 
 import java.util.Date;
 
 /**
- * @Description user实体类
+ * @Description 用户
  * @Auther CB
  * @Date 2019-06-20 19:00
  * @Version 1.0
  **/
 public class SysUser {
-    private Integer rowId ;
-
+    private Integer rowId;
     private Integer sortNo;
     private String userCode;
     private String userPassword;
-    private String role;
     private String userName;
     private String companyId;
     private String notes;
@@ -52,14 +50,6 @@ public class SysUser {
         this.userPassword = userPassword;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -94,12 +84,11 @@ public class SysUser {
 
     @Override
     public String toString() {
-        return "UserRole{" +
+        return "SysUserRole{" +
                 "rowId=" + rowId +
                 ", sortNo=" + sortNo +
                 ", userCode='" + userCode + '\'' +
                 ", userPassword='" + userPassword + '\'' +
-                ", role='" + role + '\'' +
                 ", userName='" + userName + '\'' +
                 ", companyId='" + companyId + '\'' +
                 ", notes='" + notes + '\'' +

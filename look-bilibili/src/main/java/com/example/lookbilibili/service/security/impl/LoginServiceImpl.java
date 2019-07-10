@@ -1,8 +1,8 @@
-package com.example.lookbilibili.service.manage.login.impl;
+package com.example.lookbilibili.service.security.impl;
 
-import com.example.lookbilibili.domain.manage.SysUser;
-import com.example.lookbilibili.mapper.manage.UserMapper;
-import com.example.lookbilibili.service.manage.login.LoginService;
+import com.example.lookbilibili.domain.security.SysUser;
+import com.example.lookbilibili.mapper.security.SysUserMapper;
+import com.example.lookbilibili.service.security.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private UserMapper userMapper;
+    private SysUserMapper sysUserMapper;
 
     @Override
     public String login(String userName, String userPassword) {
@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
         user.setUserCode(userName);
         user.setUserPassword(userPassword);
 
-        List userList = userMapper.getUser(user);
+        List userList = sysUserMapper.getUser(user);
         if(userList.size()>0)
             return "hello";
         else

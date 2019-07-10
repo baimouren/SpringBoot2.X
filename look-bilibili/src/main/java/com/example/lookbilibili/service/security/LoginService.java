@@ -1,4 +1,4 @@
-package com.example.lookbilibili.service.manage.login;
+package com.example.lookbilibili.service.security;
 
 import org.springframework.stereotype.Service;
 
