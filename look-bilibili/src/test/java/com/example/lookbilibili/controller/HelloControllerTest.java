@@ -8,6 +8,7 @@ import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
@@ -26,15 +27,15 @@ public class HelloControllerTest {
 
     @Before
     public void setUp() throws Exception {
-//        mvc = MockMvcBuilders.standaloneSetup(new UserController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
     }
 
-//    @Test
-//    public void testUserController() throws Exception {
-//        // 测试UserController
-//        RequestBuilder request = null;
-//
-//        // 1、get查一下user列表，应该为空
+    @Test
+    public void testUserController() throws Exception {
+        // 测试UserController
+        RequestBuilder request = null;
+
+        // 1、get查一下user列表，应该为空
 //        request = get("/users/");
 //        mvc.perform(request)
 //                .andExpect(status().isOk())
@@ -76,6 +77,6 @@ public class HelloControllerTest {
 //        mvc.perform(request)
 //                .andExpect(status().isOk())
 //                .andExpect(content().string(equalTo("[]")));
-//
-//    }
+
+    }
 }
