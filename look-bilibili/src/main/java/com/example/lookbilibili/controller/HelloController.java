@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HelloController {
 
-    @ResponseBody
-    @RequestMapping("/hello")
-    public String index(){
-        return "Hello World";
-    }
+//    @ResponseBody
+//    @RequestMapping("/hello")
+//    public String index(){
+//        return "Hello World";
+//    }
 
     @RequestMapping("/erroree")
     public String erroree() throws Exception {

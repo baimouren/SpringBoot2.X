@@ -214,9 +214,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             /* 对于没有配置权限的其他请求允许匿名访问 */
             .and().anonymous()
             /* 使用spring */
-            .and().formLogin().loginPage("/login").permitAll()
+            .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index")
             .and().logout().permitAll()
-            .and().rememberMe();
+            .and().rememberMe().tokenValiditySeconds(60*60).key("remeber-me-key");
     }
 
 }
