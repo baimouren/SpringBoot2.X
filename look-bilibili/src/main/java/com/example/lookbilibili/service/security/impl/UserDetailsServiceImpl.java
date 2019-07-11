@@ -50,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorityList.add(authority);
         }
         // 创建UserDetails对象，设置用户名、密码和权限
-        UserDetails userDetails = new User(dbUser.getUserName(), dbUser.getUserPassword(), authorityList);
+        UserDetails userDetails = new User(dbUser.getUserCode(), dbUser.getUserPassword(), authorityList);
         return userDetails;
     }
 }
