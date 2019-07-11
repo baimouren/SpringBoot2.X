@@ -215,7 +215,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and().anonymous()
             /* 使用spring */
             .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index")
-            .and().logout().permitAll()
+            .and().logout()
             .and().rememberMe().tokenValiditySeconds(60*60).key("remeber-me-key");
     }
 
