@@ -10,6 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/").setViewName("login");
         // controller 没有对应一级模块页面 /index 导致无法访问的问题
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/hello").setViewName("hello");
