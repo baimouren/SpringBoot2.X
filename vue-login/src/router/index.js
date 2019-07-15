@@ -9,11 +9,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: '登录',
-      hidden: true,
-      component: Login
-    }, {
-      path: '/HelloWorld',
       name: 'HelloWorld',
       component: HelloWorld
     }, {
