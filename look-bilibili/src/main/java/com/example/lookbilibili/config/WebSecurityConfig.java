@@ -210,31 +210,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 
     }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        // 限定通过签名的请求
-//        http.authorizeRequests()
-//            // 限定/index或/p/*，请求赋予角色 ROLE_USER/ROLE_ADMIN
-//            .antMatchers("/index","/hello", "/p/**").hasAnyRole("USER","ADMIN")
-//            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-//            // 其他路径允许签名后访问
-//            .anyRequest().permitAll()
-//            /* 对于没有配置权限的其他请求允许匿名访问 */
-//            .and().anonymous()
-//            /* 使用spring */
-//            .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index")
-//            .and().logout()
-//            .and().rememberMe();
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 限定通过签名的请求
         http.authorizeRequests()
-                .antMatchers("/admin/category/all").authenticated()
-                .antMatchers("/admin/**","/reg").hasRole("超级管理员")///admin/**的URL都需要有超级管理员角色，如果使用.hasAuthority()方法来配置，需要在参数中加上ROLE_,如下.hasAuthority("ROLE_超级管理员")
-                .anyRequest().authenticated()//其他的路径都是登录后即可访问
-                .and().formLogin().loginPage("/login_page").successHandler(new AuthenticationSuccessHandler() {
+            // 限定/index或/p/*，请求赋予角色 ROLE_USER/ROLE_ADMIN
+            .antMatchers("/index","/hello", "/p/**").hasAnyRole("USER","ADMIN")
+            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+            // 其他路径允许签名后访问
+            .anyRequest().permitAll()
+            /* 对于没有配置权限的其他请求允许匿名访问 */
+            .and().anonymous()
+            /* 使用spring */
+            .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index").successHandler(new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                 httpServletResponse.setContentType("application/json;charset=utf-8");
@@ -253,9 +242,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         out.flush();
                         out.close();
                     }
-                }).loginProcessingUrl("/login")
-                .usernameParameter("username").passwordParameter("password").permitAll()
-                .and().logout().permitAll().and().csrf().disable();
+                })
+            .and().logout()
+            .and().rememberMe()
+            .and().csrf().disable();
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/admin/category/all").authenticated()
+//                .antMatchers("/admin/**","/reg").hasRole("超级管理员")///admin/**的URL都需要有超级管理员角色，如果使用.hasAuthority()方法来配置，需要在参数中加上ROLE_,如下.hasAuthority("ROLE_超级管理员")
+//                .anyRequest().authenticated()//其他的路径都是登录后即可访问
+//                .and().formLogin().loginPage("/login_page").successHandler(new AuthenticationSuccessHandler() {
+//            @Override
+//            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+//                httpServletResponse.setContentType("application/json;charset=utf-8");
+//                PrintWriter out = httpServletResponse.getWriter();
+//                out.write("{\"status\":\"success\",\"msg\":\"登录成功\"}");
+//                out.flush();
+//                out.close();
+//            }
+//        })
+//                .failureHandler(new AuthenticationFailureHandler() {
+//                    @Override
+//                    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+//                        httpServletResponse.setContentType("application/json;charset=utf-8");
+//                        PrintWriter out = httpServletResponse.getWriter();
+//                        out.write("{\"status\":\"error\",\"msg\":\"登录失败\"}");
+//                        out.flush();
+//                        out.close();
+//                    }
+//                }).loginProcessingUrl("/login")
+//                .usernameParameter("username").passwordParameter("password").permitAll()
+//                .and().logout().permitAll().and().csrf().disable();
+//    }
 
 }
