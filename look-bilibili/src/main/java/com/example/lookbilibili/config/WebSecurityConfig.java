@@ -11,12 +11,21 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @Description 安全控制
@@ -201,22 +210,52 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 
     }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        // 限定通过签名的请求
+//        http.authorizeRequests()
+//            // 限定/index或/p/*，请求赋予角色 ROLE_USER/ROLE_ADMIN
+//            .antMatchers("/index","/hello", "/p/**").hasAnyRole("USER","ADMIN")
+//            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+//            // 其他路径允许签名后访问
+//            .anyRequest().permitAll()
+//            /* 对于没有配置权限的其他请求允许匿名访问 */
+//            .and().anonymous()
+//            /* 使用spring */
+//            .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index")
+//            .and().logout()
+//            .and().rememberMe();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 限定通过签名的请求
         http.authorizeRequests()
-            // 限定/index或/p/*，请求赋予角色 ROLE_USER/ROLE_ADMIN
-            .antMatchers("/index","/hello", "/p/**").hasAnyRole("USER","ADMIN")
-            .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-            // 其他路径允许签名后访问
-            .anyRequest().permitAll()
-            /* 对于没有配置权限的其他请求允许匿名访问 */
-            .and().anonymous()
-            /* 使用spring */
-            .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/index")
-            .and().logout()
-            .and().rememberMe().tokenValiditySeconds(60*60).key("remeber-me-key");
+                .antMatchers("/admin/category/all").authenticated()
+                .antMatchers("/admin/**","/reg").hasRole("超级管理员")///admin/**的URL都需要有超级管理员角色，如果使用.hasAuthority()方法来配置，需要在参数中加上ROLE_,如下.hasAuthority("ROLE_超级管理员")
+                .anyRequest().authenticated()//其他的路径都是登录后即可访问
+                .and().formLogin().loginPage("/login_page").successHandler(new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                PrintWriter out = httpServletResponse.getWriter();
+                out.write("{\"status\":\"success\",\"msg\":\"登录成功\"}");
+                out.flush();
+                out.close();
+            }
+        })
+                .failureHandler(new AuthenticationFailureHandler() {
+                    @Override
+                    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+                        httpServletResponse.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = httpServletResponse.getWriter();
+                        out.write("{\"status\":\"error\",\"msg\":\"登录失败\"}");
+                        out.flush();
+                        out.close();
+                    }
+                }).loginProcessingUrl("/login")
+                .usernameParameter("username").passwordParameter("password").permitAll()
+                .and().logout().permitAll().and().csrf().disable();
     }
 
 }
