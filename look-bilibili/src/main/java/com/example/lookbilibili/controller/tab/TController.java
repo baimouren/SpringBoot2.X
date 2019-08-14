@@ -7,14 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @Description:TODO(这里用一句话描述这个类的作用)
  * @author CB
  * @date:   2018年12月19日 下午3:46:05
  */
@@ -22,16 +21,16 @@ import java.util.List;
 @RequestMapping("/t")
 public class TController extends BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(TController.class);
-	
+
 	@Autowired
 	private CommonService commonService;
-	
+
 	@ResponseBody
-	@RequestMapping("/query/{tab}")
-	public List<Object> queryTab(@PathVariable String tab){
+	@RequestMapping(value = "/query/{tab}", method = RequestMethod.POST)
+	public List<Object> queryTab(@PathVariable String tab, @RequestBody Map<String,String> wdata){
         logger.info(tab);
-		List<Object> list = commonService.query(tab);
+		List<Object> list = commonService.query(tab,wdata);
 		return list;
 	}
-	
+
 }

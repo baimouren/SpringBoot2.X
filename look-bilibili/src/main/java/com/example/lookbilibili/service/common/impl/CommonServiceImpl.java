@@ -3,6 +3,7 @@ package com.example.lookbilibili.service.common.impl;
 
 import com.example.lookbilibili.mapper.common.CommonMapper;
 import com.example.lookbilibili.service.common.CommonService;
+import com.example.lookbilibili.utils.StringCamelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @Description: 公共service 对表执行CRUD基本操作
  * @author CB
  * @date:   2018年12月19日 下午3:47:22
  */
@@ -25,17 +27,29 @@ public class CommonServiceImpl implements CommonService {
 
 	@Autowired
 	private CommonMapper commonMapper;
-	
+
 	@Override
-	public List<Object> query(String tab) {
+	public List<Object> query(String tab, Map<String,String> wdata) {
 		List<Object> list = new ArrayList<>();
 		try {
-			String sql = "select * from " + tab ;
-			list = commonMapper.query(sql);
+			StringBuffer sqlbuffer = new StringBuffer();
+			sqlbuffer.append("select * from " + tab + " where 1=1 ");
+			for (String key:wdata.keySet()) {
+				sqlbuffer.append(" and "+ StringCamelUtil.camel2Underline(key) +" = \""+ wdata.get(key) +"\"");
+			}
+			List<Object> queryList = commonMapper.query(sqlbuffer.toString());
+			for (Object o:queryList) {
+				Map<String,String> map = (Map<String,String>)o;
+				Map<String,Object> retMap = new HashMap<String,Object>();
+				for (String key:map.keySet()) {
+					retMap.put(StringCamelUtil.underline2Camel(key), map.get(key));
+				}
+				list.add(retMap);
+			}
 			return list;
 		} catch (Exception e) {
-			list.add("sql执行异常");
 			e.printStackTrace();
+			list.add("sql执行异常");
 		}
 		return list;
 	}
@@ -47,13 +61,13 @@ public class CommonServiceImpl implements CommonService {
 		try {
 			for(Map<String, Object> map : list) {
 				if(null == String.valueOf(map.get("rowId"))) {
-					
+
 				}
 				sqlBuffer = sqlBuffer.length() == 0?sqlBuffer.append(String.valueOf(map.get("rowId"))):sqlBuffer.append(","+String.valueOf(map.get("rowId")));
 			}
 			if(list.size() == 0)
 			return 0;
-			
+
 			String sql = "delet from "+ tab + " where row_id in ( " + sqlBuffer.toString() + " )";
 			removeList = commonMapper.query(sql );
 		} catch (Exception e) {
@@ -73,7 +87,7 @@ public class CommonServiceImpl implements CommonService {
 			}
 			if(list.size() == 0)
 			return 0;
-			
+
 			String sql = "delet from "+ tab + " where row_id in ( " + sqlBuffer.toString() + " )";
 			removeList = commonMapper.query(sql );
 		} catch (Exception e) {

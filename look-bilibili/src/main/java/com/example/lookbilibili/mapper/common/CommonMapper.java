@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Repository
 public interface CommonMapper {
-	
+
 	public List<Object> query(@Param(value="sql") String sql);
 
 	public int save(List<Map<String, Object>> list);
