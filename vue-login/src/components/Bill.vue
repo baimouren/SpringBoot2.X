@@ -32,9 +32,10 @@
         return '';
       },
       search(){
-        postJsonRequest("/t/query/cb_m_bill", {
-          "billPayer": "chengbin"
-        }).then(response =>{
+        postJsonRequest(
+          "/t/query/cb_m_bill",
+          {"billPayer": "chengbin"}
+        ).then(response =>{
           console.log(response);
         })
       }
