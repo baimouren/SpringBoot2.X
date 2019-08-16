@@ -1,7 +1,11 @@
 <template>
 
-<!--  <el-input v-model="name"></el-input> -->
-  <el-button plain>朴素按钮</el-button>
+<!--  <el-input v-model="name"></el-input>-->
+
+  <div class="container">
+    <div>
+      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+    </div>
   <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
     <el-table-column prop="rowId" label="行号" width="180"></el-table-column>
     <el-table-column prop="billDate" label="账单日期" width="180"></el-table-column>
@@ -10,9 +14,13 @@
     <el-table-column prop="billUser" label="开票人"></el-table-column>
     <el-table-column prop="billStore" label="消费点"></el-table-column>
   </el-table>
+  </div>
 </template>
 
 <script>
+  import {postJsonRequest} from '../utils/api'
+  import {postRequest} from '../utils/api'
+  import {putRequest} from '../utils/api'
   export default {
     methods: {
       tableRowClassName({row, rowIndex}) {
@@ -23,10 +31,11 @@
         }
         return '';
       },
-      queryBill(e){
-        postRequest('/t/query/cb_m_bill', {
-          "rowId": "1",
+      search(){
+        postJsonRequest("/t/query/cb_m_bill", {
           "billPayer": "chengbin"
+        }).then(response =>{
+          console.log(response);
         })
       }
     },
