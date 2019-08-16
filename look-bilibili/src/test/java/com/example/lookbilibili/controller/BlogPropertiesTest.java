@@ -29,12 +29,12 @@ public class BlogPropertiesTest {
     private BlogProperties blogProperties;
 
 
-    @Test
-    public void getHello() throws Exception {
-        logger.error("\r\n"+blogProperties.toString());
-
-        Assert.assertEquals(blogProperties.getTitle(), "Spring Boot");
-        Assert.assertEquals(blogProperties.getName(), "DD");
-    }
+//    @Test
+//    public void getHello() throws Exception {
+//        logger.error("\r\n"+blogProperties.toString());
+//
+//        Assert.assertEquals(blogProperties.getTitle(), "Spring Boot");
+//        Assert.assertEquals(blogProperties.getName(), "DD");
+//    }
 
 }

@@ -38,17 +38,17 @@ public class AsyncControllerTest {
         mvc = MockMvcBuilders.standaloneSetup(new AsyncController()).build();
     }
 
-    @Test
-    public void asyncPage() throws Exception {
-
-        mvc.perform(MockMvcRequestBuilders.get("/async/page")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .param("lat", "123.123").param("lon", "456.456")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print()
-        );
-
-    }
+//    @Test
+//    public void asyncPage() throws Exception {
+//
+//        mvc.perform(MockMvcRequestBuilders.get("/async/page")
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                .param("lat", "123.123").param("lon", "456.456")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(MockMvcResultHandlers.print()
+//        );
+//
+//    }
 
 }
