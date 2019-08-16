@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description:TODO(这里用一句话描述这个类的作用)
+ * @Description: 对表执行基本操作
  * @author CB
  * @date:   2018年12月19日 下午3:46:05
  */
