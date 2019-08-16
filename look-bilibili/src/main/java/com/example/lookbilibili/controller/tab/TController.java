@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description: 对表执行基本操作
@@ -27,9 +27,9 @@ public class TController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/query/{tab}", method = RequestMethod.POST)
-	public List<Object> queryTab(@PathVariable String tab, @RequestBody Map<String,String> wdata){
+	public List<Object> queryTab(@PathVariable String tab, @RequestBody String wdata){
         logger.info(tab);
-		List<Object> list = commonService.query(tab,wdata);
+		List<Object> list = commonService.query(tab, null);
 		return list;
 	}
 
