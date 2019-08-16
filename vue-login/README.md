@@ -1,6 +1,6 @@
 # vue-login
 
-> login project
+> A Vue.js project
 
 ## Build Setup
 

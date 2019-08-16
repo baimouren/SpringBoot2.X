@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="background-color: rgba(235, 235, 235, 0.08)">
 <!--    <img src="./assets/logo.png">-->
     <router-view/>
   </div>
