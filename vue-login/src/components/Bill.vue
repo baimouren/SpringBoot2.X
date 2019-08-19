@@ -7,12 +7,12 @@
       <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
   <el-table :data="tableData" height="550" boder style="width: 100%" :row-class-name="tableRowClassName">
-    <el-table-column prop="rowId" label="行号"></el-table-column>
-    <el-table-column prop="billDate" label="账单日期"></el-table-column>
-    <el-table-column prop="billAmount" label="金额"></el-table-column>
-    <el-table-column prop="billPayer" label="付款人"></el-table-column>
-    <el-table-column prop="billUser" label="开票人"></el-table-column>
-    <el-table-column prop="billStore" label="消费点"></el-table-column>
+    <el-table-column prop="rowId" label="行号" sortable></el-table-column>
+    <el-table-column prop="billDate" label="账单日期" sortable></el-table-column>
+    <el-table-column prop="billAmount" label="金额" sortable></el-table-column>
+    <el-table-column prop="billPayer" label="付款人" sortable></el-table-column>
+    <el-table-column prop="billUser" label="开票人" sortable></el-table-column>
+    <el-table-column prop="billStore" label="消费点" sortable></el-table-column>
   </el-table>
   </div>
 </template>
