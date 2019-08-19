@@ -3,9 +3,16 @@
 <!--  <el-input v-model="name"></el-input>-->
 
   <div class="container">
-    <div>
-      <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-    </div>
+
+    <el-row type="flex" justify="end">
+      <el-col :span="10">
+        <el-input placeholder="表" prefix-icon="el-icon-search" v-model="searchTab"></el-input>
+      </el-col>
+      <el-col :span="6">
+        <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+      </el-col>
+    </el-row>
+
   <el-table :data="tableData" height="550" boder style="width: 100%" :row-class-name="tableRowClassName">
     <el-table-column prop="rowId" label="行号" sortable></el-table-column>
     <el-table-column prop="billDate" label="账单日期" sortable></el-table-column>
@@ -35,8 +42,22 @@
         return '';
       },
       search(){
-        postJsonRequest("/t/query/cb_m_bill", {
-          "data" : {"billPayer": "chengbin"},
+        var tabName = "";
+        if(this.searchTab == undefined || null == this.searchTab || this.searchTab.trim() == ""){
+          tabName = "cb_m_bill";
+        }else{
+          tabName = this.searchTab;
+        }
+
+        console.log("tabName: " + tabName);
+        postJsonRequest("/t/query/"+tabName, {
+          "data" : [
+            {
+              col : "rowId",
+              con : " >= ",
+              val : "1"
+            }
+            ],
           "pageNo" : 1,
           "limit" : 10
         }).then(response =>{
@@ -47,6 +68,7 @@
     },
     data() {
       return {
+        searchTab: '',
         tableData: [{}]
       }
     }
@@ -54,6 +76,9 @@
 </script>
 
 <style>
+
+
+
   .el-table .warning-row {
     background: oldlace;
   }
