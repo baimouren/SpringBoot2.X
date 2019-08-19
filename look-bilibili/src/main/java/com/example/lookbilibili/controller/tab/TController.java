@@ -27,7 +27,7 @@ public class TController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/query/{tab}", method = RequestMethod.POST)
-	public List<Object> queryTab(@PathVariable String tab, @RequestBody Map<String,String> wdata){
+	public List<Object> queryTab(@PathVariable String tab, @RequestBody Map<String,Object> wdata){
         logger.info(tab);
 		List<Object> list = commonService.query(tab,wdata);
 		return list;

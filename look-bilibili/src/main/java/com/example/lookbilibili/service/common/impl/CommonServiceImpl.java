@@ -29,14 +29,27 @@ public class CommonServiceImpl implements CommonService {
 	private CommonMapper commonMapper;
 
 	@Override
-	public List<Object> query(String tab, Map<String,String> wdata) {
+	public List<Object> query(String tab, Map<String,Object> wdata) {
 		List<Object> list = new ArrayList<>();
 		try {
+			String pStr = " limit ";
 			StringBuffer sqlbuffer = new StringBuffer();
-			sqlbuffer.append("select * from " + tab + " where 1=1 ");
-			for (String key:wdata.keySet()) {
-				sqlbuffer.append(" and "+ StringCamelUtil.camel2Underline(key) +" = \""+ wdata.get(key) +"\"");
+			sqlbuffer.append(" select * from " + tab + " where 1=1 ");
+
+			if(null != wdata.get("data")){
+				Map<String,Object> pMap = (Map<String,Object>)wdata.get("data");
+				for (String key:pMap.keySet()) {
+					sqlbuffer.append(" and "+ StringCamelUtil.camel2Underline(key) +" = \""+ pMap.get(key) +"\"");
+				}
 			}
+			if(null != wdata.get("pageNo"))
+				pStr =pStr + wdata.get("pageNo").toString() +",";
+			if (null != wdata.get("limit")){
+				pStr = pStr + wdata.get("limit").toString();
+			}else {
+				pStr = pStr + "10";
+			}
+			sqlbuffer.append(pStr);
 			List<Object> queryList = commonMapper.query(sqlbuffer.toString());
 			for (Object o:queryList) {
 				Map<String,String> map = (Map<String,String>)o;
