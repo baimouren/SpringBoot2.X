@@ -6,7 +6,7 @@
     <div>
       <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
     </div>
-  <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+  <el-table :data="tableData" height="550" boder style="width: 100%" :row-class-name="tableRowClassName">
     <el-table-column prop="rowId" label="行号"></el-table-column>
     <el-table-column prop="billDate" label="账单日期"></el-table-column>
     <el-table-column prop="billAmount" label="金额"></el-table-column>
@@ -36,7 +36,9 @@
       },
       search(){
         postJsonRequest("/t/query/cb_m_bill", {
-          "billPayer": "chengbin"
+          "data" : {"billPayer": "chengbin"},
+          "pageNo" : 1,
+          "limit" : 10
         }).then(response =>{
           console.log(response);
           this.tableData = response.data;
