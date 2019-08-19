@@ -32,24 +32,39 @@ public class CommonServiceImpl implements CommonService {
 	public List<Object> query(String tab, Map<String,Object> wdata) {
 		List<Object> list = new ArrayList<>();
 		try {
-			String pStr = " limit ";
 			StringBuffer sqlbuffer = new StringBuffer();
 			sqlbuffer.append(" select * from " + tab + " where 1=1 ");
 
-			if(null != wdata.get("data")){
-				Map<String,Object> pMap = (Map<String,Object>)wdata.get("data");
-				for (String key:pMap.keySet()) {
-					sqlbuffer.append(" and "+ StringCamelUtil.camel2Underline(key) +" = \""+ pMap.get(key) +"\"");
+			if(null != wdata.get("data") && ((List)wdata.get("data")).size() > 0 && !((List<Map>)wdata.get("data")).get(0).isEmpty()){
+				List<Map<String,String>> listMap = (List<Map<String,String>>)wdata.get("data");
+				for (Map<String,String> m : listMap) {
+					Map<String,String> smap = (Map)m;
+					sqlbuffer.append(" and "+ StringCamelUtil.camel2Underline(smap.get("col")) +smap.get("con")+ smap.get("val") );
 				}
 			}
-			if(null != wdata.get("pageNo"))
-				pStr =pStr + wdata.get("pageNo").toString() +",";
-			if (null != wdata.get("limit")){
-				pStr = pStr + wdata.get("limit").toString();
-			}else {
-				pStr = pStr + "10";
+
+			if(null != wdata.get("order")){
+				List<String> orderStr = (List<String>)wdata.get("order");
+				sqlbuffer.append(" order by  ");
+				Boolean comma = false;
+				for (String o : orderStr) {
+					String smap = o;
+					sqlbuffer.append(StringCamelUtil.camel2Underline(o));
+					if(comma )
+						sqlbuffer.append(",");
+				}
 			}
-			sqlbuffer.append(pStr);
+
+
+			String pStr = " limit ";
+			Integer limit = 10;
+			limit =Integer.valueOf(wdata.get("limit").toString());
+			if(null != wdata.get("pageNo")){
+				Integer startRow = (Integer.valueOf(wdata.get("pageNo").toString())-1) * limit;
+				pStr = pStr + startRow +",";
+			}
+
+			sqlbuffer.append(pStr + limit);
 			List<Object> queryList = commonMapper.query(sqlbuffer.toString());
 			for (Object o:queryList) {
 				Map<String,String> map = (Map<String,String>)o;
