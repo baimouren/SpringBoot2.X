@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Upload from '@/components/Upload'
 import ElButton from '@/components/ElButton'
 import EditeTable from '@/components/EditeTable'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 
@@ -14,6 +15,10 @@ export default new Router({
       path: '/',
       name: '登录',
       component: Login
+    },{
+      path: '/home',
+      name: '主页',
+      component: Home
     },{
       path: '/bill',
       name: '账单',
