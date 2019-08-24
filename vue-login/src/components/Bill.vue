@@ -6,20 +6,40 @@
 
     <el-row type="flex" justify="end">
       <el-col :span="10">
-        <el-input placeholder="表" prefix-icon="el-icon-search" v-model="searchTab"></el-input>
+        <el-input placeholder="请输入表名" prefix-icon="el-icon-search" v-model="searchTab" ></el-input>
       </el-col>
       <el-col :span="6">
         <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
       </el-col>
     </el-row>
 
-  <el-table :data="tableData" height="550" boder style="width: 100%" :row-class-name="tableRowClassName">
+  <el-table :data="tableData" class="tb-edit" height="550" boder highlight-current-row @row-click="handleCurrentChange">
     <el-table-column prop="rowId" label="行号" sortable></el-table-column>
-    <el-table-column prop="billDate" label="账单日期" sortable></el-table-column>
-    <el-table-column prop="billAmount" label="金额" sortable></el-table-column>
-    <el-table-column prop="billPayer" label="付款人" sortable></el-table-column>
-    <el-table-column prop="billUser" label="开票人" sortable></el-table-column>
-    <el-table-column prop="billStore" label="消费点" sortable></el-table-column>
+    <el-table-column label="账单日期"sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billDate" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billDate}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="金额" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billAmount" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billAmount}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="billPayer" label="付款人" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billAmount" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billAmount}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="billUser" label="开票人" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billUser" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billUser}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="billStore" label="消费点" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billStore" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billStore}}</span>
+      </template>
+    </el-table-column>
   </el-table>
   </div>
 </template>
@@ -33,13 +53,14 @@
       this.search();
     },
     methods: {
-      tableRowClassName({row, rowIndex}) {
-        if (rowIndex === 1) {
-          return 'warning-row';
-        } else if (rowIndex === 3) {
-          return 'success-row';
-        }
-        return '';
+      handleCurrentChange(row, event, column) {
+        console.log(row, event, column, event.currentTarget)
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
       },
       search(){
         var tabName = "";
@@ -75,15 +96,25 @@
   }
 </script>
 
-<style>
+<style scoped>
 
-
-
-  .el-table .warning-row {
-    background: oldlace;
+  * {
+    margin: 0;
+    padding: 0
   }
-
-  .el-table .success-row {
-    background: #f0f9eb;
+  body {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    overflow: auto;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  .tb-edit .el-input {
+    display: none
+  }
+  .tb-edit .current-row .el-input {
+    display: block
+  }
+  .tb-edit .current-row .el-input+span {
+    display: none
   }
 </style>
