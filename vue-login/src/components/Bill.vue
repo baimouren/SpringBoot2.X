@@ -88,7 +88,7 @@
           "limit" : 10
         }).then(response =>{
           console.log(response);
-          this.tableData = response.data;
+          this.tableData = response.data.result;
         })
       }
     },

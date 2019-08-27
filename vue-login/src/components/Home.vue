@@ -17,7 +17,7 @@
                   </el-menu-item>
                   <el-menu-item index="2">
                     <i class="el-icon-upload"></i>
-                    <router-link  to="/home/upload">上传</router-link>
+                    <router-link  to="/upload">上传</router-link>
                   </el-menu-item>
                   <el-menu-item index="3" disabled>
                     <i class="el-icon-document"></i>
