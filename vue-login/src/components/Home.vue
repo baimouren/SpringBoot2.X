@@ -7,21 +7,16 @@
             <el-row class="tac">
               <el-col >
                 <h5>默认颜色</h5>
-                <el-menu
-                  default-active="2"
-                  class="el-menu-vertical-demo"
-                  @open="handleOpen"
-                  @close="handleClose">
+                <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                   <el-menu-item index="1">
                     <template slot="title">
                       <i class="el-icon-notebook-2"></i>
-                      <span>账单</span>
+                      <router-link  to="/bill">账单</router-link>
                     </template>
                   </el-menu-item>
                   <el-menu-item index="2">
                     <i class="el-icon-upload"></i>
-<!--                    <span>上传</span>-->
-                    <el-link type="primary" href="#/upload">上传</el-link>
+                    <router-link  to="/home/upload">上传</router-link>
                   </el-menu-item>
                   <el-menu-item index="3" disabled>
                     <i class="el-icon-document"></i>
@@ -35,8 +30,9 @@
               </el-col>
             </el-row>
           </el-aside>
-          <!-- Main区域 -->
-          <el-main>Main随便写点啥都行</el-main>
+          <el-main>
+            <router-view/>
+          </el-main>
         </el-container>
         <el-footer>  CB  </el-footer>
     </el-container>

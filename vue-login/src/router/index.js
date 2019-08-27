@@ -18,23 +18,24 @@ export default new Router({
     },{
       path: '/home',
       name: '主页',
-      component: Home
-    },{
-      path: '/bill',
-      name: '账单',
-      component: Bill
-    },{
-      path: '/upload',
-      name: '上传',
-      component: Upload
-    },{
-      path: '/elButton',
-      name: '按钮',
-      component: ElButton
-    },{
-      path: '/editeTable',
-      name: '编辑表格',
-      component: EditeTable
+      component: Home,
+      children:[{
+          path: '/bill',
+          name: '账单',
+          component: Bill
+        },{
+          path: '/upload',
+          name: '上传',
+          component: Upload
+        },{
+          path: '/elButton',
+          name: '按钮',
+          component: ElButton
+        },{
+          path: '/editeTable',
+          name: '编辑表格',
+          component: EditeTable
+      }]
     }
   ]
 })
