@@ -1,12 +1,13 @@
 <template>
   <div>
     <el-container height="100%">
-      <el-header>Header</el-header>
+      <el-header>
+        <router-link  to="/home">首页</router-link>
+      </el-header>
       <el-container>
-          <el-aside>
+          <el-aside :span="2">
             <el-row class="tac">
               <el-col >
-                <h5>默认颜色</h5>
                 <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                   <el-menu-item index="1">
                     <template slot="title">
