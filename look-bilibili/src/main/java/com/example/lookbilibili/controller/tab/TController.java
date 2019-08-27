@@ -27,10 +27,10 @@ public class TController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/query/{tab}", method = RequestMethod.POST)
-	public List<Object> queryTab(@PathVariable String tab, @RequestBody Map<String,Object> wdata){
+	public Map<String,Object> queryTab(@PathVariable String tab, @RequestBody Map<String,Object> wdata){
         logger.info(tab);
-		List<Object> list = commonService.query(tab,wdata);
-		return list;
+		Map<String,Object> queryMap = commonService.query(tab,wdata);
+		return queryMap;
 	}
 
 }

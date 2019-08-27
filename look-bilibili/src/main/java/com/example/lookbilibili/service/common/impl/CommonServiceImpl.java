@@ -58,7 +58,7 @@ public class CommonServiceImpl implements CommonService {
 			}
 
 
-			Object queryCount = commonMapper.query("select Count(1) count_ ("+sqlbuffer.toString()+") TT").get(0);
+			Object queryCount = commonMapper.query("select Count(1) count_  from ("+sqlbuffer.toString()+") TT").get(0);
 
 			String pStr = " limit ";
 			Integer limit = 10;
