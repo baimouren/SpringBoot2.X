@@ -29,7 +29,8 @@ public class CommonServiceImpl implements CommonService {
 	private CommonMapper commonMapper;
 
 	@Override
-	public List<Object> query(String tab, Map<String,Object> wdata) {
+	public Map<String,Object> query(String tab, Map<String,Object> wdata) {
+		Map<String,Object> retMap = new HashMap<>();
 		List<Object> list = new ArrayList<>();
 		try {
 			StringBuffer sqlbuffer = new StringBuffer();
@@ -50,11 +51,14 @@ public class CommonServiceImpl implements CommonService {
 				for (String o : orderStr) {
 					String smap = o;
 					sqlbuffer.append(StringCamelUtil.camel2Underline(o));
-					if(comma )
+					if(comma ){
 						sqlbuffer.append(",");
+					}
 				}
 			}
 
+
+			Object queryCount = commonMapper.query("select Count(1) count_ ("+sqlbuffer.toString()+") TT").get(0);
 
 			String pStr = " limit ";
 			Integer limit = 10;
@@ -113,8 +117,9 @@ public class CommonServiceImpl implements CommonService {
 			for(Map<String, Object> map : list) {
 				sqlBuffer = sqlBuffer.length() == 0?sqlBuffer.append(String.valueOf(map.get("rowId"))):sqlBuffer.append(","+String.valueOf(map.get("rowId")));
 			}
-			if(list.size() == 0)
-			return 0;
+			if(list.size() == 0){
+				return 0;
+			}
 
 			String sql = "delet from "+ tab + " where row_id in ( " + sqlBuffer.toString() + " )";
 			removeList = commonMapper.query(sql );
