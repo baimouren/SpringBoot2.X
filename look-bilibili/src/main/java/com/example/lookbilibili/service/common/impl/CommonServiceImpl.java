@@ -30,7 +30,7 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public Map<String,Object> query(String tab, Map<String,Object> wdata) {
-		Map<String,Object> retMap = new HashMap<>();
+		Map<String,Object> resulttMap = new HashMap<>();
 		List<Object> list = new ArrayList<>();
 		try {
 			StringBuffer sqlbuffer = new StringBuffer();
@@ -78,12 +78,14 @@ public class CommonServiceImpl implements CommonService {
 				}
 				list.add(retMap);
 			}
-			return list;
+			resulttMap.put("result",list);
+			resulttMap.put("count",((Map<String,String>)queryCount).get("count_"));
+			return resulttMap;
 		} catch (Exception e) {
 			e.printStackTrace();
 			list.add("sql执行异常");
 		}
-		return list;
+		return resulttMap;
 	}
 
 	@Override
