@@ -21,7 +21,6 @@ import java.util.Map;
  * @author CB
  * @date:   2018年12月19日 下午3:47:22
  */
-
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
 	private static final Logger logger = LoggerFactory.getLogger(CommonServiceImpl.class);
@@ -32,7 +31,6 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public BaseModel query(String tab, Map<String,Object> wdata) {
 		BaseModel baseModel = new BaseModel();
-		Map<String,Object> resulttMap = new HashMap<>();
 		List<Object> list = new ArrayList<>();
 		try {
 			StringBuffer sqlbuffer = new StringBuffer();
@@ -83,8 +81,6 @@ public class CommonServiceImpl implements CommonService {
 				}
 				list.add(retMap);
 			}
-			resulttMap.put("result",list);
-			resulttMap.put("count",((Map<String,String>)queryCount).get("count_"));
 
 			baseModel.setResult(list);
 			baseModel.setCount(Integer.valueOf(((Map<String,String>)queryCount).get("count_")));
@@ -107,8 +103,9 @@ public class CommonServiceImpl implements CommonService {
 				}
 				sqlBuffer = sqlBuffer.length() == 0?sqlBuffer.append(String.valueOf(map.get("rowId"))):sqlBuffer.append(","+String.valueOf(map.get("rowId")));
 			}
-			if(list.size() == 0)
-			return 0;
+			if(list.size() == 0){
+				return 0;
+			}
 
 			String sql = "delet from "+ tab + " where row_id in ( " + sqlBuffer.toString() + " )";
 			removeList = commonMapper.query(sql );
