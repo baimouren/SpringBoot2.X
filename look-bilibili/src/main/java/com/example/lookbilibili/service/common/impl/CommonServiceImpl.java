@@ -1,6 +1,7 @@
 package com.example.lookbilibili.service.common.impl;
 
 
+import com.example.lookbilibili.domain.BaseModel;
 import com.example.lookbilibili.mapper.common.CommonMapper;
 import com.example.lookbilibili.service.common.CommonService;
 import com.example.lookbilibili.utils.StringCamelUtil;
@@ -29,7 +30,8 @@ public class CommonServiceImpl implements CommonService {
 	private CommonMapper commonMapper;
 
 	@Override
-	public Map<String,Object> query(String tab, Map<String,Object> wdata) {
+	public BaseModel query(String tab, Map<String,Object> wdata) {
+		BaseModel baseModel = new BaseModel();
 		Map<String,Object> resulttMap = new HashMap<>();
 		List<Object> list = new ArrayList<>();
 		try {
@@ -60,12 +62,15 @@ public class CommonServiceImpl implements CommonService {
 
 			Object queryCount = commonMapper.query("select Count(1) count_  from ("+sqlbuffer.toString()+") TT").get(0);
 
+			Object pageNo = wdata.get("pageNo");
 			String pStr = " limit ";
 			Integer limit = 10;
 			limit =Integer.valueOf(wdata.get("limit").toString());
-			if(null != wdata.get("pageNo")){
-				Integer startRow = (Integer.valueOf(wdata.get("pageNo").toString())-1) * limit;
+			if(null != pageNo){
+				Integer startRow = (Integer.valueOf(pageNo.toString())-1) * limit;
 				pStr = pStr + startRow +",";
+				baseModel.setPageNo(Integer.valueOf(pageNo.toString()));
+				baseModel.setLimit(limit);
 			}
 
 			sqlbuffer.append(pStr + limit);
@@ -80,12 +85,15 @@ public class CommonServiceImpl implements CommonService {
 			}
 			resulttMap.put("result",list);
 			resulttMap.put("count",((Map<String,String>)queryCount).get("count_"));
-			return resulttMap;
+
+			baseModel.setResult(list);
+			baseModel.setCount(Integer.valueOf(((Map<String,String>)queryCount).get("count_")));
+			return baseModel;
 		} catch (Exception e) {
 			e.printStackTrace();
 			list.add("sql执行异常");
 		}
-		return resulttMap;
+		return baseModel;
 	}
 
 	@Override

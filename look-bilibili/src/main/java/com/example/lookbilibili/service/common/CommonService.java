@@ -1,5 +1,7 @@
 package com.example.lookbilibili.service.common;
 
+import com.example.lookbilibili.domain.BaseModel;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ import java.util.Map;
  */
 public interface CommonService {
 
-	public Map<String,Object> query(String tab, Map<String,Object> wdata);
+	public BaseModel query(String tab, Map<String,Object> wdata);
 
 	public int save(List<Map<String, Object>> list, String tab);
 
