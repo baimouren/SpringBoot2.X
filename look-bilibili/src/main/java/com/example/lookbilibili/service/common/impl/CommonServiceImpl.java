@@ -83,7 +83,7 @@ public class CommonServiceImpl implements CommonService {
 			}
 
 			baseModel.setResult(list);
-			baseModel.setCount(Integer.valueOf(((Map<String,String>)queryCount).get("count_")));
+			baseModel.setCount(Integer.valueOf(((Map<String,Object>)queryCount).get("count_").toString()));
 			return baseModel;
 		} catch (Exception e) {
 			e.printStackTrace();
