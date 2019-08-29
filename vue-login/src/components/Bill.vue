@@ -44,7 +44,7 @@
     <el-button-group>
       <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button>
       <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-      <span>{{this.tableData.data.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
+      <span>{{this.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
     </el-button-group>
   </div>
 </template>
@@ -91,6 +91,7 @@
           this.tableData = response.data.result;
           this.count = response.data.count;
           this.limit = response.data.limit;
+          this.pageNo = response.data.pageNo;
         })
       }
     },
