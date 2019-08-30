@@ -35,7 +35,7 @@
             <router-view/>
           </el-main>
         </el-container>
-        <el-footer>  CB  </el-footer>
+<!--        <el-footer>  CB  </el-footer>-->
     </el-container>
   </div>
 </template>

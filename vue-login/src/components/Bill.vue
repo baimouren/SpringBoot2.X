@@ -9,7 +9,7 @@
         <el-input placeholder="请输入表名" prefix-icon="el-icon-search" v-model="searchTab" ></el-input>
       </el-col>
       <el-col :span="6">
-        <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="search" >搜索</el-button>
       </el-col>
     </el-row>
 
@@ -42,8 +42,8 @@
     </el-table-column>
   </el-table>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button>
-      <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+      <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
+      <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
       <span>{{this.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
     </el-button-group>
   </div>
@@ -58,6 +58,15 @@
       this.search();
     },
     methods: {
+      lastPage(){
+        this.pageNo--;
+        this.search();
+      },
+      nextPage(){
+        this.pageNo++;
+        this.search();
+      },
+
       handleCurrentChange(row, event, column) {
         console.log(row, event, column, event.currentTarget)
       },
@@ -84,8 +93,8 @@
               val : "1"
             }
             ],
-          "pageNo" : 1,
-          "limit" : 10
+          "pageNo" : this.pageNo<=1?1:this.pageNo,
+          "limit" : this.limit
         }).then(response =>{
           console.log(response);
           this.tableData = response.data.result;
@@ -99,6 +108,8 @@
       return {
         count:0,
         limit:10,
+        pageNo:1,
+        data:[],
         searchTab: '',
         tableData: [{}]
       }
@@ -126,5 +137,11 @@
   }
   .tb-edit .current-row .el-input+span {
     display: none
+  }
+
+  button{
+    width: 100px;
+    height: 35px;
+
   }
 </style>
