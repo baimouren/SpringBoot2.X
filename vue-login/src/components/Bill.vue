@@ -14,6 +14,7 @@
       </el-col>
       <el-col :span="6">
         <el-button type="primary" icon="el-icon-search" @click="search" >搜索</el-button>
+        <el-button type="primary" @click="save" >保存</el-button>
       </el-col>
     </el-row>
 
@@ -31,7 +32,7 @@
     </el-table-column>
     <el-table-column prop="billPayer" label="付款人" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billAmount" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billAmount}}</span>
+        <el-input size="small" v-model="scope.row.billPayer" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billPayer}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billUser" label="开票人" sortable>
@@ -56,9 +57,9 @@
     </el-table-column>
   </el-table>
     <el-button-group>
-      <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
-      <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-      <span>{{this.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
+        <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
+        <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+        <span>{{this.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
     </el-button-group>
   </div>
 </template>
@@ -72,8 +73,11 @@
       this.search();
     },
     methods: {
+      save(){
+        console.log(JSON.stringify(this.tableData))
+      },
       addRow(){
-
+        this.tableData.push({})
       },
       lastPage(){
         this.pageNo--;
