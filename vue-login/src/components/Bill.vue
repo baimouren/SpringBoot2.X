@@ -5,6 +5,10 @@
   <div class="container">
 
     <el-row type="flex" justify="end">
+      <el-col :span="2">
+        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addRow" >新增行</el-button>
+      </el-col>
+      <el-col :span="6"></el-col>
       <el-col :span="10">
         <el-input placeholder="请输入表名" prefix-icon="el-icon-search" v-model="searchTab" ></el-input>
       </el-col>
@@ -40,6 +44,16 @@
         <el-input size="small" v-model="scope.row.billStore" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billStore}}</span>
       </template>
     </el-table-column>
+    <el-table-column prop="billPayWay" label="付费方式" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billPayWay" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billPayWay}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="billSubmitDate" label="提交日期" sortable>
+      <template slot-scope="scope">
+        <el-input size="small" v-model="scope.row.billSubmitDate" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billSubmitDate}}</span>
+      </template>
+    </el-table-column>
   </el-table>
     <el-button-group>
       <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
@@ -58,6 +72,9 @@
       this.search();
     },
     methods: {
+      addRow(){
+
+      },
       lastPage(){
         this.pageNo--;
         this.search();

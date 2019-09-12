@@ -67,8 +67,8 @@
   }
 
   .el-header {
-    background-color: #20a0ff;
-    color: #333;
+    /*background-color: #20a0ff;*/
+    /*color: #333;*/
     text-align: center;
     display: flex;
     align-items: center;
@@ -77,8 +77,8 @@
 
 
   .el-main {
-    background-color: #fff;
-    color: #000;
+    /*background-color: #fff;*/
+    /*color: #000;*/
     text-align: center;
   }
 </style>
