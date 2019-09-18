@@ -59,7 +59,7 @@
     <el-button-group>
         <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
         <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-        <span>{{this.pageNo}}/{{Math.ceil(this.count/this.limit)}}页</span>
+        <span>{{this.pageNo}}/{{this.pageCount}}页</span>
     </el-button-group>
   </div>
 </template>
@@ -75,27 +75,33 @@
     methods: {
       save(){
         console.log(JSON.stringify(this.tableData))
+        this.tableData.forEach(function(item, index){
+          console.log(index,item)
+          if (undefined == item.rowId){
+
+          }
+        })
       },
       addRow(){
         this.tableData.push({})
       },
       lastPage(){
-        this.pageNo--;
+        this.pageNo > 1 ? this.pageNo-- : this.pageNo;
         this.search();
       },
       nextPage(){
-        this.pageNo++;
+        this.pageNo < this.pageCount ? this.pageNo++ : this.pageNo;
         this.search();
       },
 
       handleCurrentChange(row, event, column) {
-        console.log(row, event, column, event.currentTarget)
+        // console.log(row, event, column, event.currentTarget)
       },
       handleEdit(index, row) {
-        console.log(index, row);
+        // console.log(index, row);
       },
       handleDelete(index, row) {
-        console.log(index, row);
+        // console.log(index, row);
       },
       search(){
         var tabName = "";
@@ -122,6 +128,7 @@
           this.count = response.data.count;
           this.limit = response.data.limit;
           this.pageNo = response.data.pageNo;
+          this.pageCount = Math.ceil(response.data.count/response.data.limit);
         })
       }
     },
@@ -130,6 +137,7 @@
         count:0,
         limit:10,
         pageNo:1,
+        pageCount:0,
         data:[],
         searchTab: '',
         tableData: [{}]
