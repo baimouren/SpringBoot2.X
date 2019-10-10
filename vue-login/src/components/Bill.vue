@@ -8,14 +8,14 @@
       <el-col :span="2">
         <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addRow" >新增行</el-button>
       </el-col>
-      <el-col :span="6"></el-col>
+      <el-col :span="5"></el-col>
       <el-col :span="10">
         <el-input placeholder="请输入表名" prefix-icon="el-icon-search" v-model="searchTab" ></el-input>
       </el-col>
-      <el-col :span="6">
-        <el-button type="primary" icon="el-icon-search" @click="search" >搜索</el-button>
-        <el-button type="primary" @click="save" >保存</el-button>
+      <el-col :span="2">
+        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="search" >查询</el-button>
       </el-col>
+      <el-col :span="5"></el-col>
     </el-row>
 
   <el-table :data="tableData" class="tb-edit" height="550" boder highlight-current-row @row-click="handleCurrentChange">
@@ -55,6 +55,13 @@
         <el-input size="small" v-model="scope.row.billSubmitDate" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billSubmitDate}}</span>
       </template>
     </el-table-column>
+
+    <el-table-column fixed="right" label="操作" width="100">
+      <template slot-scope="scope">
+        <el-button @click="rowSave(scope.$index, scope.row)" type="text" size="small">保存</el-button>
+        <el-button @click="rowRemove(scope.row)"type="text" size="small">删除</el-button>
+      </template>
+    </el-table-column>
   </el-table>
     <el-button-group>
         <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
@@ -73,14 +80,12 @@
       this.search();
     },
     methods: {
-      save(){
-        console.log(JSON.stringify(this.tableData))
-        this.tableData.forEach(function(item, index){
-          console.log(index,item)
-          if (undefined == item.rowId){
+      rowRemove(row){
+        console.log(row)
+      },
+      rowSave(index, row){
+        console.log(index, row)
 
-          }
-        })
       },
       addRow(){
         this.tableData.push({})
@@ -168,9 +173,9 @@
     display: none
   }
 
-  button{
-    width: 100px;
-    height: 35px;
+  /*button{*/
+  /*  width: 100px;*/
+  /*  height: 35px;*/
+  /*}*/
 
-  }
 </style>
