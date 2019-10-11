@@ -6,14 +6,14 @@
 
     <el-row type="flex" justify="end">
       <el-col :span="2">
-        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addRow" >新增行</el-button>
+        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addRow" class="button_height">新增行</el-button>
       </el-col>
       <el-col :span="5"></el-col>
       <el-col :span="10">
         <el-input placeholder="请输入表名" prefix-icon="el-icon-search" v-model="searchTab" ></el-input>
       </el-col>
       <el-col :span="2">
-        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="search" >查询</el-button>
+        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="search" class="button_height">查询</el-button>
       </el-col>
       <el-col :span="5"></el-col>
     </el-row>
@@ -64,8 +64,8 @@
     </el-table-column>
   </el-table>
     <el-button-group>
-        <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage">上一页</el-button>
-        <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+        <el-button type="primary" icon="el-icon-arrow-left" @click="lastPage" class="button_height">上一页</el-button>
+        <el-button type="primary" @click="nextPage" class="button_height">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
         <span>{{this.pageNo}}/{{this.pageCount}}页</span>
     </el-button-group>
   </div>
@@ -173,9 +173,8 @@
     display: none
   }
 
-  /*button{*/
-  /*  width: 100px;*/
-  /*  height: 35px;*/
-  /*}*/
+  .button_height{
+    height: 25px;
+  }
 
 </style>
