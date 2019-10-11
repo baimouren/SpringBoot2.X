@@ -34,4 +34,12 @@ public class TController extends BaseController {
 		return queryMap;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/save/{tab}", method = RequestMethod.POST)
+	public Integer saveTab(@PathVariable String tab, @RequestBody List<Map<String,Object>> wdata){
+        logger.info(tab);
+		int saveint = commonService.save(wdata,tab);
+		return saveint;
+	}
+
 }
