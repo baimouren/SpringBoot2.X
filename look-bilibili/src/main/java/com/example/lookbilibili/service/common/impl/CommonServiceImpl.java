@@ -107,7 +107,7 @@ public class CommonServiceImpl implements CommonService {
 				return 0;
 			}
 
-			String sql = "delet from "+ tab + " where row_id in ( " + sqlBuffer.toString() + " )";
+			String sql = "insert into "+ tab + " ";
 			removeList = commonMapper.query(sql );
 		} catch (Exception e) {
 			logger.error("sql执行异常");
