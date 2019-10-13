@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class TController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/save/{tab}", method = RequestMethod.POST)
-	public Integer saveTab(@PathVariable String tab, @RequestBody List<Map<String,Object>> wdata){
+	public Integer saveTab(@PathVariable String tab, @RequestBody Map<String,Object> wdata){
         logger.info(tab);
 		int saveint = commonService.save(wdata,tab);
 		return saveint;

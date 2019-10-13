@@ -15,7 +15,7 @@ public interface CommonService {
 
 	public BaseModel query(String tab, Map<String,Object> wdata);
 
-	public int save(List<Map<String, Object>> list, String tab);
+	public int save(Map<String, Object> wdata, String tab);
 
 	public int remove(List<Map<String, Object>> list, String tab);
 }

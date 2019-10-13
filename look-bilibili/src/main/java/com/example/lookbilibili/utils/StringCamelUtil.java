@@ -49,7 +49,8 @@ public class StringCamelUtil {
     /**
      * 驼峰法转下划线
      *
-     * @param line 源字符串 默认smallCamel:true 全小写
+     * @param line 原字符串
+     * @param smallCamel 是否转小写 默认smallCamel:true 全小写
      * @return 转换后的字符串
      */
     public static String camel2Underline(String line,Boolean ... smallCamel) {

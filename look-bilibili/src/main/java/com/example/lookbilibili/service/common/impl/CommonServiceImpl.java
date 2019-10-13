@@ -8,13 +8,12 @@ import com.example.lookbilibili.utils.StringCamelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Description: 公共service 对表执行CRUD基本操作
@@ -73,11 +72,15 @@ public class CommonServiceImpl implements CommonService {
 
 			sqlbuffer.append(pStr + limit);
 			List<Object> queryList = commonMapper.query(sqlbuffer.toString());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			for (Object o:queryList) {
 				Map<String,String> map = (Map<String,String>)o;
 				Map<String,Object> retMap = new HashMap<String,Object>();
 				for (String key:map.keySet()) {
-					retMap.put(StringCamelUtil.underline2Camel(key), map.get(key));
+					Object tValue = map.get(key);
+					if(tValue instanceof Timestamp)
+						tValue = sdf.format(tValue);
+					retMap.put(StringCamelUtil.underline2Camel(key), tValue);
 				}
 				list.add(retMap);
 			}
@@ -93,27 +96,31 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public int save(List<Map<String, Object>> list, String tab) {
-		List<Object> removeList = null;
+	public int save(Map<String, Object> wdata, String tab) {
+		Integer saveAmount = 0 ;
 		StringBuffer sqlBuffer = new StringBuffer();
 		try {
-			for(Map<String, Object> map : list) {
-				if(null == String.valueOf(map.get("rowId"))) {
-
+			if(null == wdata.get("rowId")) {
+				sqlBuffer = sqlBuffer.append("insert into "+ tab);
+				StringBuffer keyStr = new StringBuffer();
+				StringBuffer valueStr = new StringBuffer();
+				for (String key:wdata.keySet()) {
+					keyStr.append(keyStr.length()==0?"":",").append(StringCamelUtil.camel2Underline(key));
+					valueStr.append(valueStr.length()==0?"":",").append("'"+wdata.get(key)+"'");
 				}
-				sqlBuffer = sqlBuffer.length() == 0?sqlBuffer.append(String.valueOf(map.get("rowId"))):sqlBuffer.append(","+String.valueOf(map.get("rowId")));
-			}
-			if(list.size() == 0){
-				return 0;
+				sqlBuffer.append(" ("+keyStr.toString()+" ,revise_time,create_time) ");
+				sqlBuffer.append(" values ("+valueStr.toString()+",now(),now() )");
+			}else{
+				sqlBuffer.append(" update "+ tab);
+				sqlBuffer.append(" revise_time = now() ");
 			}
 
-			String sql = "insert into "+ tab + " ";
-			removeList = commonMapper.query(sql );
+			saveAmount = commonMapper.save(sqlBuffer.toString() );
 		} catch (Exception e) {
 			logger.error("sql执行异常");
 			e.printStackTrace();
 		}
-		return removeList.size();
+		return saveAmount;
 	}
 
 	@Override

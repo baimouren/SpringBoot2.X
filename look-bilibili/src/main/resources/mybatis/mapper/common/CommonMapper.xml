@@ -4,12 +4,17 @@
 <!-- namespace用于绑定Dao接口 -->
 <mapper namespace="com.example.lookbilibili.mapper.common.CommonMapper">
     <!-- 查询名字记录sql -->  
-    <select id="query" parameterType="string" resultType="java.util.LinkedHashMap">
+    <select id="query" parameterType="String" resultType="java.util.LinkedHashMap">
        ${_parameter}
     </select>  
 	
-    <!-- 增删改 -->  
-    <select id="save" parameterType="java.lang.String" resultType="int">    
-        ${sql} 
-    </select>  
+    <!-- 改 -->
+    <insert id="save" parameterType="String">
+        ${_parameter}
+    </insert>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="String">
+        ${_parameter}
+    </delete>
 </mapper>
