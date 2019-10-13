@@ -20,39 +20,52 @@
 
   <el-table :data="tableData" class="tb-edit" height="550" boder highlight-current-row @row-click="handleCurrentChange">
     <el-table-column prop="rowId" label="行号" sortable></el-table-column>
-    <el-table-column label="账单日期"sortable>
+    <el-table-column prop="startTime" label="开始时间" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billDate" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billDate}}</span>
+        <el-date-picker type="datetime" v-model="scope.row.startTime" placeholder="任意时间点" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+        <span>{{scope.row.startTime}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="endTime" label="结束时间" sortable>
+      <template slot-scope="scope">
+        <el-date-picker type="datetime" v-model="scope.row.endTime" placeholder="任意时间点" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+        <span>{{scope.row.endTime}}</span>
       </template>
     </el-table-column>
     <el-table-column label="金额" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billAmount" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billAmount}}</span>
+        <el-input size="small" v-model="scope.row.billAmount" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+        <span>{{scope.row.billAmount}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billPayer" label="付款人" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billPayer" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billPayer}}</span>
+        <el-input size="small" v-model="scope.row.billPayer" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+        <span>{{scope.row.billPayer}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billUser" label="开票人" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billUser" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billUser}}</span>
+        <el-input size="small" v-model="scope.row.billUser" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+        <span>{{scope.row.billUser}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billStore" label="消费点" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billStore" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billStore}}</span>
+        <el-input size="small" v-model="scope.row.billStore" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+        <span>{{scope.row.billStore}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billPayWay" label="付费方式" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billPayWay" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billPayWay}}</span>
+        <el-input size="small" v-model="scope.row.billPayWay" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+        <span>{{scope.row.billPayWay}}</span>
       </template>
     </el-table-column>
     <el-table-column prop="billSubmitDate" label="提交日期" sortable>
       <template slot-scope="scope">
-        <el-input size="small" v-model="scope.row.billSubmitDate" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> <span>{{scope.row.billSubmitDate}}</span>
+        <el-date-picker v-model="scope.row.billSubmitDate" type="date" placeholder="选择日期" @change="handleEdit(scope.$index, scope.row)" value-format="yyyy-MM-dd"></el-date-picker>
+        <span>{{scope.row.billSubmitDate}}</span>
       </template>
     </el-table-column>
 
@@ -72,6 +85,8 @@
 </template>
 
 <script>
+
+  import axios from 'axios'
   import {postJsonRequest} from '../utils/api'
   import {postRequest} from '../utils/api'
   import {putRequest} from '../utils/api'
@@ -85,7 +100,16 @@
       },
       rowSave(index, row){
         console.log(index, row)
-
+        axios({
+          method: 'post',
+          url: `/t/save/`+this.searchTab,
+          data: row,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(response=> {
+          console.debug("保存数据成功")
+        });
       },
       addRow(){
         this.tableData.push({})
@@ -109,7 +133,7 @@
         // console.log(index, row);
       },
       search(){
-        var tabName = "";
+        var tabName = this.tabName;
         if(this.searchTab == undefined || null == this.searchTab || this.searchTab.trim() == ""){
           tabName = "cb_m_bill";
         }else{
@@ -144,7 +168,7 @@
         pageNo:1,
         pageCount:0,
         data:[],
-        searchTab: '',
+        searchTab: 'cb_m_bill',
         tableData: [{}]
       }
     }
