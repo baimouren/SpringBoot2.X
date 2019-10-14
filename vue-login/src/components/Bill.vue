@@ -99,7 +99,11 @@
         console.log(row)
       },
       rowSave(index, row){
-        console.log(index, row)
+        console.log(index, row);
+        var zdbds = /^[0-9]{1,4}([.]{1}[0-9]{1,2})?$/;
+        if (zdbds.test(row.billAmount)){
+          alert("金额格式{4,2}");
+        }
         axios({
           method: 'post',
           url: `/t/save/`+this.searchTab,
