@@ -5,7 +5,7 @@ import Bill from '@/components/Bill'
 import Login from '@/components/Login'
 import Upload from '@/components/Upload'
 import ElButton from '@/components/ElButton'
-import EditeTable from '@/components/EditeTable'
+import WorkLog from '@/components/WorkLog'
 import Tab01 from '@/components/Tab01'
 
 Vue.use(Router)
@@ -33,9 +33,9 @@ export default new Router({
           name: '按钮',
           component: ElButton
         },{
-          path: '/editeTable',
-          name: '编辑表格',
-          component: EditeTable
+          path: '/workLog',
+          name: '工作日志',
+          component: WorkLog
       },{
           path: '/tab01',
           name: 'tab01',

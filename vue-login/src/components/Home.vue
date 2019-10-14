@@ -20,6 +20,10 @@
                     <router-link  to="/upload">上传</router-link>
                   </el-menu-item>
                   <el-menu-item index="3" disabled>
+                    <i class="el-icon-notebook-2"></i>
+                    <router-link  to="/workLog">工作日志</router-link>
+                  </el-menu-item>
+                  <el-menu-item index="3" disabled>
                     <i class="el-icon-document"></i>
                     <router-link  to="/tab01">tab01</router-link>
                   </el-menu-item>
