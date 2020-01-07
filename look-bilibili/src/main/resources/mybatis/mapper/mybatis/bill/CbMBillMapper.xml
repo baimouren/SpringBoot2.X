@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.lookbilibili.mapper.bill.CbMBillMapper" >
+  <resultMap id="BaseResultMap" type="com.example.lookbilibili.domain.bill.CbMBill" >
+    <id column="ROW_ID" property="rowId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="bill_amount" property="billAmount" jdbcType="DOUBLE" />
+    <result column="bill_payer" property="billPayer" jdbcType="VARCHAR" />
+    <result column="bill_User" property="billUser" jdbcType="VARCHAR" />
+    <result column="bill_store" property="billStore" jdbcType="VARCHAR" />
+    <result column="bill_pay_way" property="billPayWay" jdbcType="INTEGER" />
+    <result column="bill_submit_date" property="billSubmitDate" jdbcType="DATE" />
+    <result column="img_package" property="imgPackage" jdbcType="VARCHAR" />
+    <result column="img_id" property="imgId" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="revise_time" property="reviseTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROW_ID, start_time, end_time, bill_amount, bill_payer, bill_User, bill_store, bill_pay_way, 
+    bill_submit_date, img_package, img_id, notes, revise_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cb_m_bill
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cb_m_bill
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.lookbilibili.domain.bill.CbMBill" >
+    insert into cb_m_bill (ROW_ID, start_time, end_time, 
+      bill_amount, bill_payer, bill_User, 
+      bill_store, bill_pay_way, bill_submit_date, 
+      img_package, img_id, notes, 
+      revise_time, create_time)
+    values (#{rowId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{billAmount,jdbcType=DOUBLE}, #{billPayer,jdbcType=VARCHAR}, #{billUser,jdbcType=VARCHAR}, 
+      #{billStore,jdbcType=VARCHAR}, #{billPayWay,jdbcType=INTEGER}, #{billSubmitDate,jdbcType=DATE}, 
+      #{imgPackage,jdbcType=VARCHAR}, #{imgId,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{reviseTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.lookbilibili.domain.bill.CbMBill" >
+    insert into cb_m_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rowId != null" >
+        ROW_ID,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="billAmount != null" >
+        bill_amount,
+      </if>
+      <if test="billPayer != null" >
+        bill_payer,
+      </if>
+      <if test="billUser != null" >
+        bill_User,
+      </if>
+      <if test="billStore != null" >
+        bill_store,
+      </if>
+      <if test="billPayWay != null" >
+        bill_pay_way,
+      </if>
+      <if test="billSubmitDate != null" >
+        bill_submit_date,
+      </if>
+      <if test="imgPackage != null" >
+        img_package,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="reviseTime != null" >
+        revise_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rowId != null" >
+        #{rowId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billAmount != null" >
+        #{billAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="billPayer != null" >
+        #{billPayer,jdbcType=VARCHAR},
+      </if>
+      <if test="billUser != null" >
+        #{billUser,jdbcType=VARCHAR},
+      </if>
+      <if test="billStore != null" >
+        #{billStore,jdbcType=VARCHAR},
+      </if>
+      <if test="billPayWay != null" >
+        #{billPayWay,jdbcType=INTEGER},
+      </if>
+      <if test="billSubmitDate != null" >
+        #{billSubmitDate,jdbcType=DATE},
+      </if>
+      <if test="imgPackage != null" >
+        #{imgPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="reviseTime != null" >
+        #{reviseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.lookbilibili.domain.bill.CbMBill" >
+    update cb_m_bill
+    <set >
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billAmount != null" >
+        bill_amount = #{billAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="billPayer != null" >
+        bill_payer = #{billPayer,jdbcType=VARCHAR},
+      </if>
+      <if test="billUser != null" >
+        bill_User = #{billUser,jdbcType=VARCHAR},
+      </if>
+      <if test="billStore != null" >
+        bill_store = #{billStore,jdbcType=VARCHAR},
+      </if>
+      <if test="billPayWay != null" >
+        bill_pay_way = #{billPayWay,jdbcType=INTEGER},
+      </if>
+      <if test="billSubmitDate != null" >
+        bill_submit_date = #{billSubmitDate,jdbcType=DATE},
+      </if>
+      <if test="imgPackage != null" >
+        img_package = #{imgPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="reviseTime != null" >
+        revise_time = #{reviseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.lookbilibili.domain.bill.CbMBill" >
+    update cb_m_bill
+    set start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      bill_amount = #{billAmount,jdbcType=DOUBLE},
+      bill_payer = #{billPayer,jdbcType=VARCHAR},
+      bill_User = #{billUser,jdbcType=VARCHAR},
+      bill_store = #{billStore,jdbcType=VARCHAR},
+      bill_pay_way = #{billPayWay,jdbcType=INTEGER},
+      bill_submit_date = #{billSubmitDate,jdbcType=DATE},
+      img_package = #{imgPackage,jdbcType=VARCHAR},
+      img_id = #{imgId,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR},
+      revise_time = #{reviseTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </update>
+</mapper>

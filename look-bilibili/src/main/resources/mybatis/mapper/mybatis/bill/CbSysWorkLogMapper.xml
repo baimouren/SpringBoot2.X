@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.lookbilibili.mapper.bill.CbSysWorkLogMapper" >
+  <resultMap id="BaseResultMap" type="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    <id column="ROW_ID" property="rowId" jdbcType="INTEGER" />
+    <result column="PLAN_TODAY" property="planToday" jdbcType="VARCHAR" />
+    <result column="FINISHED" property="finished" jdbcType="VARCHAR" />
+    <result column="PLAN_TOMORROW" property="planTomorrow" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
+    <result column="LOG_DATE" property="logDate" jdbcType="DATE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.lookbilibili.domain.bill.CbSysWorkLog" extends="BaseResultMap" >
+    <result column="NOTES" property="notes" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROW_ID, PLAN_TODAY, FINISHED, PLAN_TOMORROW, USER_ID, USER_CODE, LOG_DATE, CREATE_TIME, 
+    COMPANY_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    NOTES
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cb_sys_work_log
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cb_sys_work_log
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    insert into cb_sys_work_log (ROW_ID, PLAN_TODAY, FINISHED, 
+      PLAN_TOMORROW, USER_ID, USER_CODE, 
+      LOG_DATE, CREATE_TIME, COMPANY_ID, 
+      NOTES)
+    values (#{rowId,jdbcType=INTEGER}, #{planToday,jdbcType=VARCHAR}, #{finished,jdbcType=VARCHAR}, 
+      #{planTomorrow,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, 
+      #{logDate,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}, #{companyId,jdbcType=INTEGER}, 
+      #{notes,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    insert into cb_sys_work_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rowId != null" >
+        ROW_ID,
+      </if>
+      <if test="planToday != null" >
+        PLAN_TODAY,
+      </if>
+      <if test="finished != null" >
+        FINISHED,
+      </if>
+      <if test="planTomorrow != null" >
+        PLAN_TOMORROW,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userCode != null" >
+        USER_CODE,
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rowId != null" >
+        #{rowId,jdbcType=INTEGER},
+      </if>
+      <if test="planToday != null" >
+        #{planToday,jdbcType=VARCHAR},
+      </if>
+      <if test="finished != null" >
+        #{finished,jdbcType=VARCHAR},
+      </if>
+      <if test="planTomorrow != null" >
+        #{planTomorrow,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logDate != null" >
+        #{logDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    update cb_sys_work_log
+    <set >
+      <if test="planToday != null" >
+        PLAN_TODAY = #{planToday,jdbcType=VARCHAR},
+      </if>
+      <if test="finished != null" >
+        FINISHED = #{finished,jdbcType=VARCHAR},
+      </if>
+      <if test="planTomorrow != null" >
+        PLAN_TOMORROW = #{planTomorrow,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null" >
+        USER_CODE = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logDate != null" >
+        LOG_DATE = #{logDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    update cb_sys_work_log
+    set PLAN_TODAY = #{planToday,jdbcType=VARCHAR},
+      FINISHED = #{finished,jdbcType=VARCHAR},
+      PLAN_TOMORROW = #{planTomorrow,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      LOG_DATE = #{logDate,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      NOTES = #{notes,jdbcType=LONGVARBINARY}
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.lookbilibili.domain.bill.CbSysWorkLog" >
+    update cb_sys_work_log
+    set PLAN_TODAY = #{planToday,jdbcType=VARCHAR},
+      FINISHED = #{finished,jdbcType=VARCHAR},
+      PLAN_TOMORROW = #{planTomorrow,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      USER_CODE = #{userCode,jdbcType=VARCHAR},
+      LOG_DATE = #{logDate,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER}
+    where ROW_ID = #{rowId,jdbcType=INTEGER}
+  </update>
+</mapper>
